@@ -1,0 +1,8 @@
+To install dependencies if we have toml
+
+uv sync
+
+
+uv add sentence-transformers
+
+It will add the compatible version and update TOML as well.
