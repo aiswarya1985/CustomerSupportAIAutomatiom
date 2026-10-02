@@ -21,7 +21,7 @@ class CustomerMemoryStore:
                 "provider": "groq",
                 "config": {
                     "model": settings.gemini_model,
-                    "api_key": settings.gemini_api_key,
+                    "api_key": settings.GOOGLE_API_KEY,
                     "temperature": settings.llm_temperature,
                 },
             },
@@ -68,14 +68,14 @@ class CustomerMemoryStore:
 
     def search(self, query: str, user_id: str, limit: int = 5) -> list[dict[str, Any]]:
         try:
-            raw = self._memory.search(query, user_id=user_id, limit=limit)
+            raw = self._memory.search(query, filters={"user_id": user_id}, limit=limit)
         except TypeError:
             raw = self._memory.search(query, user_id=user_id)
         return self._normalize_results(raw, limit)
 
     def list_memories(self, user_id: str, limit: int = 20) -> list[dict[str, Any]]:
         if hasattr(self._memory, "get_all"):
-            raw = self._memory.get_all(user_id=user_id)
+            raw = self._memory.get_all(filters={"user_id": user_id})
             return self._normalize_results(raw, limit)
 
     def add_interaction(

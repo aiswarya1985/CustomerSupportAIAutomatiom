@@ -1,6 +1,4 @@
 from __future__ import annotations
-
-import logging
 from typing import Any
 
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
@@ -19,9 +17,10 @@ from customer_support_agent.repositories.sqlite.tickets import TicketsRepository
 from customer_support_agent.schemas.api import GenerateDraftResponse, TicketCreateRequest, TicketResponse
 from customer_support_agent.services.copilot_service import SupportCopilot
 from customer_support_agent.services.draft_service import DraftService
+from loguru import logger
+import traceback
 
 
-logger = logging.getLogger(__name__)
 router = APIRouter()
 
 def _generate_and_store_draft_background(
@@ -110,6 +109,7 @@ def generate_draft_route(
     draft_service: DraftService = Depends(get_draft_service),
     copilot: SupportCopilot = Depends(get_copilot_or_503),
 ) -> dict[str, Any]:
+    logger.info(f"Generating draft for ticket_id: {ticket_id}")
     ticket = tickets_repo.get_by_id(ticket_id)
     if not ticket:
         raise HTTPException(status_code=404, detail="Ticket not found")
@@ -119,15 +119,18 @@ def generate_draft_route(
         raise HTTPException(status_code=404, detail="Customer not found")
 
     try:
-        draft = draft_service.generate_and_store_manual(
+          logger.info(f"Generating draft for ticket_id: {ticket_id}")
+          draft = draft_service.generate_and_store_manual(
             ticket_id=ticket_id,
             ticket=ticket,
             customer=customer,
             drafts_repo=drafts_repo,
             copilot=copilot,
         )
-    except Exception as exc:
-        raise HTTPException(status_code=500, detail=f"Failed to generate draft: {exc}") from exc
+    except Exception as exc:  
+      traceback.print_exc()
+      logger.error(f"Failed to generate draft for ticket_id: {ticket_id}. Error: {exc}")
+      raise HTTPException(status_code=500, detail=f"Failed to generate draft: {exc}") from exc
 
     return {
         "ticket_id": ticket_id,

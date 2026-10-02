@@ -5,6 +5,9 @@ import uvicorn
 from customer_support_agent.api.app_factory import create_app
 from customer_support_agent.core.settings import get_settings
 
+from utilities.logger import setup_logger
+
+setup_logger()
 app = create_app()
 
 if __name__ == "__main__":

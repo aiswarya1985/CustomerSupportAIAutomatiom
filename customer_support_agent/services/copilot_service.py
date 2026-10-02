@@ -6,7 +6,7 @@ from typing import Any
 
 from langchain.agents import create_agent
 from langchain_core.messages import AIMessage, BaseMessage, HumanMessage, SystemMessage, ToolMessage
-from langchain_groq import ChatGroq
+from langchain_google_genai import ChatGoogleGenerativeAI
 from langgraph.checkpoint.memory import InMemorySaver
 
 from customer_support_agent.core.settings import Settings
@@ -15,7 +15,7 @@ from customer_support_agent.integrations.memory.mem0_store import (
 )
 from customer_support_agent.integrations.rag.chroma_kb import KnowledgeBaseService
 from customer_support_agent.integrations.tools.support_tools import get_support_tools
-
+from loguru import logger
 
 
 class SupportCopilot:
@@ -25,9 +25,9 @@ class SupportCopilot:
                 "GOOGLE_API_KEY is missing. Add it in .env before generating drafts."
             )
         self._settings = settings
-        self._llm = ChatGroq(
+        self._llm = ChatGoogleGenerativeAI(
             model=settings.gemini_model,
-            GOOGLE_API_KEY=settings.GOOGLE_API_KEY,
+            google_api_key=settings.GOOGLE_API_KEY,
             temperature=settings.llm_temperature,
         )
         self._tools = get_support_tools()
@@ -50,7 +50,7 @@ class SupportCopilot:
     def generate_draft(self, ticket: dict[str, Any], customer: dict[str, Any]) -> dict[str, Any]:
         query = f"{ticket['subject']}\n{ticket['description']}"
         customer_email = customer["email"]
-
+        logger.info("Entering generate_draft") 
         memory_hits = self._search_memory_scopes(
             query=query,
             customer_email=customer_email,
@@ -58,7 +58,7 @@ class SupportCopilot:
             limit=self._settings.mem0_top_k,
         )
         kb_hits = self.rag.search(query=query, top_k=self._settings.rag_top_k)
-
+        logger.info(f"memory_hits: {memory_hits}, kb_hits: {kb_hits}")
         system_prompt = self._build_system_prompt(memory_hits=memory_hits, kb_hits=kb_hits)
         user_prompt = self._build_user_prompt(ticket=ticket, customer=customer)
 
@@ -76,7 +76,9 @@ class SupportCopilot:
                 "recursion_limit": 40,
             },
         )
+        logger.info(f"agent_result: {agent_result}")
         draft_text, tool_calls = self._extract_agent_draft_and_tool_calls(agent_result)
+        logger.info(f"draft_text: {draft_text}, tool_calls: {tool_calls}")
         used_fallback = False
         if not draft_text:
             draft_text = self._fallback_generate_text(

@@ -7,9 +7,13 @@ from typing import Any
 
 import requests
 import streamlit as st
+from uvicorn.config import logger
+
+from utilities.logger import setup_logger
 
 API_BASE_URL = os.getenv("API_BASE_URL", "http://localhost:8000")
 
+setup_logger()
 
 st.set_page_config(page_title="Support Copilot", layout="wide")
 st.title("Support Copilot Dashboard")
@@ -23,6 +27,7 @@ def fetch_tickets() -> list[dict[str, Any]]:
 
 
 def fetch_draft(ticket_id: int) -> dict[str, Any] | None:
+    logger.info(f"Fetching draft for ticket_id: {ticket_id}")
     response = requests.get(f"{API_BASE_URL}/api/drafts/{ticket_id}", timeout=20)
     if response.status_code == 404:
         return None
@@ -61,6 +66,7 @@ def create_ticket(payload: dict[str, Any]) -> dict[str, Any]:
 
 
 def trigger_draft(ticket_id: int) -> dict[str, Any]:
+    logger.info(f"Triggering draft generation for ticket_id: {ticket_id}")
     response = requests.post(
         f"{API_BASE_URL}/api/tickets/{ticket_id}/generate-draft",
         timeout=60,

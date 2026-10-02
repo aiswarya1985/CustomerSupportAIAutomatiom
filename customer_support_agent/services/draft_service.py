@@ -8,7 +8,7 @@ from customer_support_agent.repositories.sqlite.customers import CustomersReposi
 from customer_support_agent.repositories.sqlite.drafts import DraftsRepository
 from customer_support_agent.repositories.sqlite.tickets import TicketsRepository
 from customer_support_agent.services.copilot_service import SupportCopilot
-
+from loguru import logger
 
 class DraftService:
     def serialize_draft(self, draft: dict[str, Any]) -> dict[str, Any]:
@@ -104,6 +104,7 @@ class DraftService:
         drafts_repo: DraftsRepository,
         copilot: SupportCopilot,
     ) -> dict[str, Any]:
+        logger.info(f"generate_and_store_manual: {ticket_id}")
         result = copilot.generate_draft(ticket=ticket, customer=customer)
         draft_text, context_used = self._normalize_draft_result(result)
         return drafts_repo.create(
