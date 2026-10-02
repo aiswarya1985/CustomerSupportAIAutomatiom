@@ -72,3 +72,5 @@ logs/
 
 # uv
 .uv/
+
+test_chromadb.py

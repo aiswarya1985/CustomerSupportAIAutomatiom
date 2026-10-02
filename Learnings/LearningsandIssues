@@ -6,3 +6,7 @@ uv sync
 uv add sentence-transformers
 
 It will add the compatible version and update TOML as well.
+
+how to start unicorn app
+
+uv run uvicorn main:app --host 0.0.0.0 --port 8000 --reload
