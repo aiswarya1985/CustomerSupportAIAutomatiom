@@ -10,3 +10,8 @@ It will add the compatible version and update TOML as well.
 how to start unicorn app
 
 uv run uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+To view data in SQLLite
+Install extensions SQLLIte
+click on database and open support db file from local
+

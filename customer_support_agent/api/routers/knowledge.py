@@ -7,6 +7,7 @@ from customer_support_agent.schemas.api import KnowledgeIngestRequest, Knowledge
 from customer_support_agent.services.knowledge_service import KnowledgeService
 
 router = APIRouter()
+from loguru import logger
 
 @router.post("/api/knowledge/ingest", response_model=KnowledgeIngestResponse)
 def ingest_knowledge_route(
@@ -14,6 +15,7 @@ def ingest_knowledge_route(
     knowledge_service: KnowledgeService = Depends(get_knowledge_service),
 ) -> dict[str, int]:
     try:
+        logger.info("Starting knowledge ingestion...")
         return knowledge_service.ingest(clear_existing=payload.clear_existing)
     except Exception as exc:
         raise HTTPException(status_code=500, detail=f"Ingestion failed: {exc}") from exc

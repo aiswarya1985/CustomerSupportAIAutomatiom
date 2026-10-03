@@ -7,7 +7,7 @@ from typing import Any
 
 import requests
 import streamlit as st
-from uvicorn.config import logger
+from loguru import logger
 
 from utilities.logger import setup_logger
 
@@ -21,13 +21,14 @@ st.title("Support Copilot Dashboard")
 
 @st.cache_data(ttl=10)
 def fetch_tickets() -> list[dict[str, Any]]:
+    logger.info("Fetching tickets from UI...")
     response = requests.get(f"{API_BASE_URL}/api/tickets", timeout=20)
     response.raise_for_status()
     return response.json()
 
 
 def fetch_draft(ticket_id: int) -> dict[str, Any] | None:
-    logger.info(f"Fetching draft for ticket_id: {ticket_id}")
+    logger.info(f"Fetching details for ticket_id: {ticket_id}")
     response = requests.get(f"{API_BASE_URL}/api/drafts/{ticket_id}", timeout=20)
     if response.status_code == 404:
         return None
@@ -59,6 +60,7 @@ def _extract_api_error(response: requests.Response) -> str:
 
 def create_ticket(payload: dict[str, Any]) -> dict[str, Any]:
     response = requests.post(f"{API_BASE_URL}/api/tickets", json=payload, timeout=20)
+    logger.info(f"Creating ticket UI with payload: {payload}, response status: {response.status_code}")
     if response.status_code >= 400:
         raise RuntimeError(_extract_api_error(response))
     fetch_tickets.clear()
@@ -115,11 +117,12 @@ def render_context(context: dict[str, Any] | None) -> None:
     if not context:
         st.info("No context captured for this draft.")
         return
-
+    
     if context.get("version") != 2:
         st.json(context)
         return
 
+    logger.info(f"Rendering context from UI: {context}")
     signals = context.get("signals") or {}
     memory_hits = context.get("memory_hits") or []
     knowledge_hits = context.get("knowledge_hits") or []
@@ -201,6 +204,7 @@ with st.sidebar:
 
     if st.button("Ingest Knowledge Base", use_container_width=True):
         try:
+            logger.info("Ingesting knowledge base from UI...")
             result = ingest_knowledge(clear_existing=False)
             st.success(
                 f"Indexed {result['files_indexed']} files / {result['chunks_indexed']} chunks"
@@ -225,6 +229,7 @@ with st.form("create_ticket_form"):
 
     submitted = st.form_submit_button("Create Ticket")
     if submitted:
+        logger.info("Entering ticket creation flow from UI...")
         if not customer_email or not subject or not description:
             st.warning("Email, subject, and description are required.")
         elif len(subject.strip()) < 3:

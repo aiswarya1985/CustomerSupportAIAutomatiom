@@ -185,8 +185,16 @@ class SupportCopilot:
         )
         raw_hits: list[dict[str, Any]] = []
         for scope_user_id in scope_user_ids:
-            hits = self.memory.search(query=query, user_id=scope_user_id, limit=per_scope_limit)
-            raw_hits.extend(self._annotate_memory_scope(hits=hits, scope_user_id=scope_user_id))
+            try:              
+                hits = self.memory.search(query=query, user_id=scope_user_id, limit=per_scope_limit)
+                logger.info(f"memory hits:{hits}")
+                raw_hits.extend(self._annotate_memory_scope(hits=hits, scope_user_id=scope_user_id))
+                logger.info(f"Total memory hits after annotation: {raw_hits}")   
+            except Exception as exc:           
+             logger.error(
+                f"Memory search failed for scope={scope_user_id!r}: "
+                f"{type(exc).__name__}: {exc}"
+            )  
         return self._dedupe_memory_hits(raw_hits, limit=per_scope_limit * len(scope_user_ids))
     
     def _memory_scope_ids(self, customer_email: str, customer_company: str | None) -> list[str]:
@@ -238,6 +246,7 @@ class SupportCopilot:
                 continue
             seen.add(key)
             deduped.append(hit)
+            logger.info(f"Deduped memory hit: {hit}")
             if len(deduped) >= max(1, limit):
                 break
         return deduped

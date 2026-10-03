@@ -31,6 +31,7 @@ class DraftService:
         }
     
     def serialize_ticket(self, ticket: dict[str, Any]) -> dict[str, Any]:
+        logger.info(f"Serializing ticket: {ticket}")
         return {
             "id": ticket["id"],
             "customer_id": ticket["customer_id"],

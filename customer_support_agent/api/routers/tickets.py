@@ -49,6 +49,7 @@ def create_ticket_route(
     drafts_repo: DraftsRepository = Depends(get_drafts_repository),
     draft_service: DraftService = Depends(get_draft_service),
 ) -> dict[str, Any]:
+    logger.info(f"Creating ticket for customer_email: {payload.customer_email}, subject: {payload.subject}")
     customer = customers_repo.create_or_get(
         email=str(payload.customer_email),
         name=payload.customer_name,
@@ -77,7 +78,7 @@ def create_ticket_route(
             drafts_repo,
             draft_service,
         )
-
+    logger.info(f"Merged ticket data: {merged}")
     return draft_service.serialize_ticket(merged)
 
 
@@ -86,6 +87,7 @@ def list_tickets_route(
     tickets_repo: TicketsRepository = Depends(get_tickets_repository),
     draft_service: DraftService = Depends(get_draft_service),
 ) -> list[dict[str, Any]]:
+    logger.info("Listing all tickets...")
     return [draft_service.serialize_ticket(ticket) for ticket in tickets_repo.list()]
 
 
@@ -96,6 +98,7 @@ def get_ticket_route(
     draft_service: DraftService = Depends(get_draft_service),
 ) -> dict[str, Any]:
     ticket = tickets_repo.get_by_id(ticket_id)
+    logger.info(f"Fetching ticket with ticket_id: {ticket_id}, found: {ticket is not None}")
     if not ticket:
         raise HTTPException(status_code=404, detail="Ticket not found")
     return draft_service.serialize_ticket(ticket)

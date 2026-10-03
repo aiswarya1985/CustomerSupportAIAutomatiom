@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import Any
 
+from loguru import logger
 from customer_support_agent.core.settings import Settings
 
 try:
@@ -18,7 +19,7 @@ class CustomerMemoryStore:
 
         config: dict[str, Any] = {
             "llm": {
-                "provider": "groq",
+                "provider": "gemini",
                 "config": {
                     "model": settings.gemini_model,
                     "api_key": settings.GOOGLE_API_KEY,
@@ -68,6 +69,7 @@ class CustomerMemoryStore:
 
     def search(self, query: str, user_id: str, limit: int = 5) -> list[dict[str, Any]]:
         try:
+            logger.info(f"Searching memory for user_id: {user_id} with query: {query}")
             raw = self._memory.search(query, filters={"user_id": user_id}, limit=limit)
         except TypeError:
             raw = self._memory.search(query, user_id=user_id)

@@ -8,9 +8,10 @@ from typing import Any
 import chromadb
 from chromadb.utils import embedding_functions
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+from streamlit import logger
 
 from customer_support_agent.core.settings import Settings
-
+from loguru import logger
 
 class KnowledgeBaseService:
     def __init__(self, settings:Settings):
@@ -45,6 +46,7 @@ class KnowledgeBaseService:
      return embedding_functions.DefaultEmbeddingFunction()
 
     def ingest_directory(self, directory: Path, clear_existing: bool = False) -> dict[str, int]:
+        logger.info(f"Starting ingestion of directory: {directory} with clear_existing={clear_existing}")
         if clear_existing:
             self._client.delete_collection(name=self._collection_name)
             self._collection = self._client.get_or_create_collection(
