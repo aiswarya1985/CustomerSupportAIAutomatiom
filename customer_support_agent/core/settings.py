@@ -16,7 +16,8 @@ class Settings(BaseSettings):
 
     app_name: str = "AI Copilot for Support Agents"
   
-    gemini_model: str = "gemini-3.8-flash"
+    gemini_model1: str = "gemini-3.8-flash"
+    gemini_model: str = "gemini-3.1-flash-lite"
     GOOGLE_API_KEY: str = ""
     llm_temperature: float = 0.2
   

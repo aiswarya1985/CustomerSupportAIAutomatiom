@@ -145,7 +145,65 @@ return result
 
 
 
+###################################################################
+Generare draft
 
+#	File	Function	What to log
+1	app.py	trigger_draft	Request sent / response received
+2	api/routers/tickets.py	generate_draft_route	Ticket + customer found, service called, error caught
+3	services/draft_service.py	generate_and_store_manual	Copilot called, draft saved
+4	services/copilot_service.py	generate_draft	All 8 sub-steps
+5	integrations/tools/support_tools.py	lookup_customer_plan, lookup_open_ticket_load	Tool called + result
+6	integrations/memory/mem0_store.py	search	Per-scope memory search
+7	integrations/rag/chroma_kb.py	search	KB search + result count
+Optional — for the deep chain:
+
+#	File	Function	What to log
+8	services/copilot_service.py	_search_memory_scopes	Per-scope loop iteration (already has a log — keep it)
+9	services/copilot_service.py	_extract_agent_draft_and_tool_calls	How many messages / tool calls parsed
+10	services/copilot_service.py	_build_context	Final signals dict
+
+
+######################################################################################################################################
+
+
+co pilot service steps
+Step	Purpose	Type	Failure mode
+0	Build query + extract email/company	Trivial	Rare
+1	Memory search (2 scopes)	Read	Mem0/ChromaDB lock, Gemini quota
+2	KB search	Read	Embedding failure, empty collection
+3	Build prompts	Trivial	Rare
+4	Run LangGraph agent (LLM + tools)	LLM call	429/404/401/timeout — the #1 failure
+5	Extract draft + tool calls	Parse	Malformed agent output
+6	Fallback: LLM retry	LLM call	Only if draft empty
+7	Fallback: template	Trivial	Guarantees non-empty
+8	Build context_used	Assemble	Rare
+
+
+######################################################################################################################################
+
+
+
+
+accept draft flow
+
+######################################################################################################################################
+User clicks "Accept Draft"
+    ↓
+Streamlit calls update_draft(draft_id, content, "accepted")
+    ↓
+PATCH /api/drafts/{draft_id}  {content, status: "accepted"}
+    ↓
+drafts.py: update_draft_route
+    ├── updates draft row (content + status)
+    ├── marks ticket "resolved"
+    └── save_accepted_resolution → writes to Mem0 (×2 scopes)
+    ↓
+Return serialized draft
+    ↓
+Streamlit shows "Draft accepted and memory updated"
+
+######################################################################################################################################
 
 
 

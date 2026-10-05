@@ -14,13 +14,12 @@ class DraftService:
     def serialize_draft(self, draft: dict[str, Any]) -> dict[str, Any]:
         context_raw = draft.get("context_used")
         context_data: dict[str, Any] | None = None
-
+        logger.info(f"Serializing draft: {draft}")
         if context_raw:
             try:
                 context_data = json.loads(context_raw)
             except json.JSONDecodeError:
                 context_data = {"raw": context_raw}
-
         return {
             "id": draft["id"],
             "ticket_id": draft["ticket_id"],
@@ -48,14 +47,18 @@ class DraftService:
 
     
     def parse_context_used(self, raw: Any) -> dict[str, Any]:
+        logger.info(f"Parsing context used: {raw}")
         if isinstance(raw, dict):
+            logger.info(f"Context used is already a dict: {raw}")
             return raw
         if isinstance(raw, str) and raw:
             try:
                 parsed = json.loads(raw)
+                logger.info(f"Parsed context used: {parsed}")
                 return parsed if isinstance(parsed, dict) else {"raw": raw}
             except json.JSONDecodeError:
                 return {"raw": raw}
+                
         return {}
 
     def generate_and_store_background(
@@ -105,7 +108,7 @@ class DraftService:
         drafts_repo: DraftsRepository,
         copilot: SupportCopilot,
     ) -> dict[str, Any]:
-        logger.info(f"generate_and_store_manual: {ticket_id}")
+        logger.info(f"generate_and_store_manual from draft service: {ticket_id}")
         result = copilot.generate_draft(ticket=ticket, customer=customer)
         draft_text, context_used = self._normalize_draft_result(result)
         return drafts_repo.create(

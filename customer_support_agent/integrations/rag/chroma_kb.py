@@ -94,7 +94,8 @@ class KnowledgeBaseService:
     def search(self, query: str, top_k: int | None = None) -> list[dict[str, Any]]:
         if self._collection.count() == 0:
             return []
-        
+
+        logger.info(f"Searching knowledge base for query: {query} with top_k={top_k}")
         results = self._collection.query(
             query_texts=[query],
             n_results=top_k or self._settings.rag_top_k,

@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Any
 
 from loguru import logger
+from streamlit import status
 
 from customer_support_agent.repositories.sqlite.base import connect, row_to_dict
 
@@ -59,6 +60,7 @@ class DraftsRepository:
         updates: list[str] = []
         values: list[Any] = []
 
+        logger.info(f"Updating draft with draft_id: {draft_id}, content: {content}, status: {status}")
         if content is not None:
             updates.append("content = ?")
             values.append(content)

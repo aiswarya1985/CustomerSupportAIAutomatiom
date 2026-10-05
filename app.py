@@ -287,7 +287,7 @@ else:
 
     if st.button("Generate Draft", use_container_width=True):
         try:
-            logger.info(f"Generating draft for ticket_id: {selected_ticket['id']}")
+            logger.info(f"Generating draft for ticket_id from UI: {selected_ticket['id']}")
             new_draft = trigger_draft(selected_ticket["id"])
             st.session_state[f"draft_{selected_ticket['id']}"] = new_draft
             st.success("Draft generated")
@@ -314,6 +314,7 @@ else:
         with c3:
             if st.button("Accept Draft", use_container_width=True):
                 try:
+                    logger.info(f"Accepting draft for ticket_id from UI: {selected_ticket['id']}")
                     updated = update_draft(draft_data["id"], edited_content, "accepted")
                     st.session_state[f"draft_{selected_ticket['id']}"] = updated
                     st.success("Draft accepted and memory updated")

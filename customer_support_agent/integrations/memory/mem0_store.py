@@ -121,8 +121,9 @@ class CustomerMemoryStore:
         ]
 
         metadata = {"type": "resolution"}
-
+        logger.info(f"Adding resolution to memory for user_id: {user_id}, ticket_subject: {ticket_subject}, entity_links: {entity_links}")
         self._add_messages(messages=messages, user_id=user_id, metadata=metadata)
+        logger.info(f"Resolution added to memory for user_id: {user_id}, ticket_subject: {ticket_subject}, entity_links: {entity_links}")
 
     def _add_messages(
         self,
@@ -131,9 +132,12 @@ class CustomerMemoryStore:
         metadata: dict[str, Any] | None = None,
     ) -> None:
         try:
+            logger.info(f"Adding messages to memory for user_id started: {user_id} with metadata: {metadata}")
             self._memory.add(messages, user_id=user_id, metadata=metadata or {})
-        except TypeError:
-            self._memory.add(messages, user_id=user_id)
+            logger.info(f"Added messages to memory for user_id completed: {user_id} with metadata: {metadata}")
+        except Exception as e:
+         logger.exception(f"[MEM0.ADD] EXCEPTION: {type(e).__name__}: {e}")
+         raise
 
 
     def _normalize_results(self, raw: Any, limit: int) -> list[dict[str, Any]]:

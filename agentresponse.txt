@@ -1,0 +1,455 @@
+Final response in edit draft
+{
+    "type": "text",
+    "text": "Hello Svara,\n\nThank you for reaching out, and I apologize for the inconvenience you have experienced with requesting your cheque book.\n\nUnder our savings account policy, cheque book services are activated after one month (30 days) from the date of account opening. As you have now reached this milestone, your account should be eligible to request and receive a cheque book.\n\nTo help us resolve this quickly, could you please confirm:\n1. The method you are using to request the cheque book (e.g., Mobile Banking, Net Banking, or branch visit)?\n2. Any specific error message or prompt you see when attempting to place the request?\n\nAlternatively, please reply with your registered account number, and we will be happy to verify your account status and initiate the request on your behalf. \n\nWe appreciate your patience and look forward to assisting you.\n\nBest regards,  \nCustomer Support Team",
+    "extras": {
+        "signature": "ErALCq0LAWkUfRM/eEGCuXoyw6l/SXK/79irIXQs8pyjC3GtjoAxjkwRGuiXWxobl3rLVpNE3uvdk6xAE/34Omh4OzNs0kYy3+kSAb3z0hEUXzPGakwCO6dxywTUtDFlMYPkx//QxACuKXbhLj9Cp67uGaTY3R/+B+347XCadpG0/albgcwNNKK28CpHqsHlCqqRnnGCyU+S6LfT4meCKKxEggrYm++P9YtWYqN2YkiniAAfTmwJKm8lRhoEgn7Uq1eXyD8i9UzscWrhJ3jp392krbaa0ha5VFmKoVpjW6pkdFSukkqq+eQFMRdkND9qTPitgGoAYak/bkn217VdcbsWgoJ2IwolU87vpN3U0QufN0JdjPjEcipMMtkXvYPo2BmjDctkHRZ2gL9XeR4tAp3WTAOKp2wnYQ1bZBzdfUtnx/aMGK/TW5NaLBOWdr6FeQOt0Y4/tUsZWJmDP9Igs1oEI7CZt0Csf5oZpIA83OGRc+p+OrcsACwcPmMucEBiBBbKNePAQtAwOOtLS/apMBgvEPOHIexex6QKqwchTuGA08BfQR94imMbWvWCnTs5Qo+HLuLBHEk+PfKakHJHCTQWNgwiqvrFsg6VTzjxc9GHUrj4mBuY+Q2toUT5sUdN0bin/0KBrNgmAC+3hNSz4m4sn9cHFoDsMXIWxeor0JzfMr3EMIE4hboeMK9gRxiiav/4dP5RPj3JrXfsJXIUU+mH8wnXk7LkaaLUnC/FOoxreTPi2si+3f65qD8+Xng9A6vhRdCxJ5mixZSzk4dD9R9xqUvvuiYr1QpDRKajM4Ip/BqC5FjC0HhvRAl6deha5k1NH/6MlQu2rw8UMorPu5nW+eVdQ7mgocK8ksxG1Az0H9GgDvBmBbNrzQ5gV8icJETX2ywvHaqSthT654z+trHHGcnck+gQLLaEvFHhvkMQyH6NuAcWDozRJNIwLe/hKqAtns+OPvxkW5WuEwq3TSrnNylzgWI9h3OkDioJh7mmz/gmpSJgdwErb7yKuXmMTkSU7WULKWGhQWtgQRK2mdnlhEyh61sgF5BUT3A76kW5K2z5j1Pd0bW5hlg5IWTYPTYycFf+pc9SdTp+0aBuwhSPqyWkP2/7po+rj2ta671qfkTz6ZjNcIBqc6sb5hL6Vle2WjBr2m6tjUhGnJHd01Eb/Vi7FPvEj3ogxHQy/qCDntfMID2IoLI7OHh9MZ9VsUwXI8ys2TmVN2fZs3vn06l/pGt/xMYxxDhyAYHgdSQ3t1scce8KNN6T6Ch73zzSV+17fG930Cdep/RWXgI3sFPSxi5UXFIsbxIBtZ7X1ziqcV0Bhh822U4m5yEgAvgESNcuazOpni3DfQVLulJKM5Z32Sifjm7crOHnMWBfoK++iUAiK9h4ygdNc3yRtfG8kidufiY3hYQvubmEU9LaH/6Ikhnpe1rYwysqLZv4e1icR+MrA8QY2ax+02G46dX0H3IMnoq6MW1ab6t5WWWO+o26ZYx5/6yijYWrmIa9hTd3Vbx/EYc7qqVsO1md4k884MVZ8oU0LOOOlrCjKKmbyS4aKyDlYqEZBDgaSpXimdSNZAmRZ0ZyTlevtrLt2fAJFWoZIl+0t8ZmO7oBse4SfdFmggZwfEh8v0nAnZHCuPwitcGth1P+7kCrob965JizpWSnoQ31+haOOPSmlwb+RxkUvelSSL8MYPCnOE9qGuEP9UsA4atwE2WLrDZrjFwj7A9xAV0+aCDZQdANTGwyCyKkN4GLIOUHvfK2tIYN5OydGbOgN4VHjg7EA3Rmc/2zMO/Ld8HQvNIVB8OhZ1391pd3gTT+eDWJ9vxivaVnOF+faKg4CuJ0g8cUdxCpM5B2pbb5vca7mUkarDtBwrSUHMZ2JrfLdOcs5CR/KDydC80PmTlyLUb1SdtNj0VvEMupPlxBKoJ+HOJdPfN5Ex0TJfSx/A=="
+    }
+}
+
+KB HITS
+
+[
+    {
+        "content": "# Saving Account Rule\n\nThis document defines key policy rules for saving account holders.\n\n## Mandatory Rules\n\n1. Cheque services are activated only after 1 month of Account openening.\n2. DMAT service is not available for saving account holders.",
+        "source": "saving-account-rule.md",
+        "distance": 0.315767765045166
+    },
+    {
+        "content": "# KYC and Account Update Rules\n\n## KYC Update Frequency\n\n- Full KYC update is required every 8 years for low-risk customers.\n- Full KYC update is required every 2 years for high-risk customers.\n\n## Accepted Address Proof\n\n- Aadhaar card\n- Passport\n- Driving license\n- Utility bill (not older than 3 months)\n\n## Mobile Number or Email Update\n\n- Updates can be done through branch or net banking.\n- OTP verification is mandatory for all profile updates.\n- Changes reflect within 30 minutes after successful verification.\n\n## Name Correction Policy\n\n- Minor spelling corrections are processed in 2 working days.\n- Legal name change requires supporting legal documents and branch verification.",
+        "source": "banking-kyc-and-account-update-rules.md",
+        "distance": 0.40827780961990356
+    },
+    {
+        "content": "# Banking Charges and Minimum Balance\n\n## Minimum Balance Rules\n\n- Urban branch savings account: minimum monthly average balance INR 10,000.\n- Semi-urban branch savings account: minimum monthly average balance INR 5,000.\n- Rural branch savings account: minimum monthly average balance INR 2,500.\n\n## Non-Maintenance Charges\n\n- Charge applies if average monthly balance is below required threshold.\n- Typical non-maintenance fee: INR 350 + applicable taxes.\n- Charges are posted at month-end billing cycle.\n\n## SMS and Debit Card Charges\n\n- SMS alert annual fee: INR 150 + taxes.\n- Debit card annual maintenance fee: INR 250 + taxes.\n\n## Account Closure Charges\n\n- No closure fee after 14 days from account opening.\n- Closure within first 14 days may attract INR 200 processing charge.",
+        "source": "banking-charges-and-minimum-balance.md",
+        "distance": 0.41449421644210815
+    },
+    {
+        "content": "# ATM Cash Withdrawal FAQ\n\n## Daily Withdrawal Limits\n\n- Standard savings account: up to INR 25,000 per day.\n- Premium savings account: up to INR 50,000 per day.\n- Limits may vary by card type and account risk profile.\n\n## Common Issues\n\n### Cash debited but not dispensed\n\n- Reversal is typically processed within 24 hours.\n- If not reversed in 24 hours, customer should raise a dispute with:\n  - Transaction date and time\n  - ATM location\n  - Last 4 digits of card\n\n### Card blocked after wrong PIN attempts\n\n- Card is temporarily blocked after 3 incorrect PIN attempts.\n- Block is auto-removed after 24 hours, or customer can request manual reset.\n\n## Safety Guidance\n\n- Never share OTP or PIN with anyone.\n- Bank staff will never ask for full card PIN.",
+        "source": "banking-atm-cash-withdrawal-faq.md",
+        "distance": 0.43572312593460083
+    }
+]
+
+Agent result after calling agents
+
+
+{
+  "messages": [
+    {
+      "type": "SystemMessage",
+      "content": "You are an AI copilot for customer support agents. Write concise, empathetic, and actionable draft replies. If needed, call tools to verify plan, billing, or ticket load before finalizing.\n\nCustomer Memory Context:\n- No prior customer memories found.\n\nKnowledge Base Context:\n- [saving-account-rule.md] ...\n- [banking-kyc-and-account-update-rules.md] ...\n- [banking-charges-and-minimum-balance.md] ...\n- [banking-atm-cash-withdrawal-faq.md] ...\n\nOutput rules:\n1) Start with empathy and direct acknowledgement.\n2) Provide clear next steps or resolution path.\n3) Reference KB/tool facts when relevant, without exposing internal chain-of-thought.\n4) Keep response under 180 words unless more detail is necessary.",
+      "id": "620d79de-caaa-4a5d-b97b-aecff1e15b84"
+    },
+    {
+      "type": "HumanMessage",
+      "content": "Customer: Svara (svara@gmail.com)\nCompany: Google\nTicket Subject: I am unable to get cheque book after 30 days of account opening.\nTicket Priority: medium\nTicket Description:\nI am unable to get cheque book after 30 days of account opening.\n\nCreate a draft response for the support agent. Use tools when the ticket likely needs billing, plan, or account-level checks.",
+      "id": "405d18b0-74ed-415b-bc17-440f15dbf248"
+    },
+    {
+      "type": "AIMessage",
+      "content": [],
+      "tool_calls": [
+        {
+          "name": "lookup_customer_plan",
+          "args": { "customer_email": "svara@gmail.com" },
+          "id": "call_4637343",
+          "type": "tool_call"
+        },
+        {
+          "name": "lookup_open_ticket_load",
+          "args": { "customer_email": "svara@gmail.com" },
+          "id": "call_4637344",
+          "type": "tool_call"
+        }
+      ],
+      "response_metadata": {
+        "finish_reason": "STOP",
+        "model_name": "gemini-3.8-flash",
+        "model_provider": "google_genai"
+      },
+      "usage_metadata": {
+        "input_tokens": 965,
+        "output_tokens": 187,
+        "total_tokens": 1152,
+        "input_token_details": { "cache_read": 0 },
+        "output_token_details": { "reasoning": 135 }
+      },
+      "name": "support_copilot_agent"
+    },
+    {
+      "type": "ToolMessage",
+      "name": "lookup_customer_plan",
+      "tool_call_id": "call_4637343",
+      "content": "{\"tool\": \"lookup_customer_plan\", \"customer_email\": \"svara@gmail.com\", \"summary\": \"svara@gmail.com is on the starter plan with 24h SLA.\", \"details\": {\"plan_tier\": \"starter\", \"sla_hours\": 24, \"priority_queue\": false}, \"recommended_action\": \"Use standard handling.\"}"
+    },
+    {
+      "type": "ToolMessage",
+      "name": "lookup_open_ticket_load",
+      "tool_call_id": "call_4637344",
+      "content": "{\"tool\": \"lookup_open_ticket_load\", \"customer_email\": \"svara@gmail.com\", \"summary\": \"No customer record found for svara@gmail.com.\", \"details\": {\"customer_found\": false, \"open_tickets\": null, \"load_band\": \"unknown\"}, \"recommended_action\": \"Ask agent to verify customer email before promising SLA.\"}"
+    },
+    {
+      "type": "AIMessage",
+      "content": [
+        {
+          "type": "text",
+          "text": "Hello Svara,\n\nThank you for reaching out, and I apologize for the inconvenience you have experienced with requesting your cheque book.\n\nUnder our savings account policy, cheque book services are activated after one month (30 days) from the date of account opening. As you have now reached this milestone, your account should be eligible to request and receive a cheque book.\n\nTo help us resolve this quickly, could you please confirm:\n1. The method you are using to request the cheque book (e.g., Mobile Banking, Net Banking, or branch visit)?\n2. Any specific error message or prompt you see when attempting to place the request?\n\nAlternatively, please reply with your registered account number, and we will be happy to verify your account status and initiate the request on your behalf. \n\nWe appreciate your patience and look forward to assisting you.\n\nBest regards,  \nCustomer Support Team"
+        }
+      ],
+      "response_metadata": {
+        "finish_reason": "STOP",
+        "model_name": "gemini-3.8-flash",
+        "model_provider": "google_genai"
+      },
+      "usage_metadata": {
+        "input_tokens": 1327,
+        "output_tokens": 504,
+        "total_tokens": 1831,
+        "input_token_details": { "cache_read": 0 },
+        "output_token_details": { "reasoning": 320 }
+      },
+      "name": "support_copilot_agent"
+    }
+  ]
+}
+
+formatted draft
+
+[
+  {
+    "type": "SystemMessage",
+    "content": "You are an AI copilot for customer support agents. Write concise, empathetic, and actionable draft replies. If needed, call tools to verify plan, billing, or ticket load before finalizing.\n\nCustomer Memory Context:\n- No prior customer memories found.\n\nKnowledge Base Context:\n- [saving-account-rule.md] 
+	# Saving Account Rule\n\nThis document defines key policy rules for saving account holders.\n\n## Mandatory Rules\n\n1. Cheque services are activated only after 1 month of Account openening.\n2. DMAT service is not available for saving account holders.\n- [banking-kyc-and-account-update-rules.md] # KYC and Account Update Rules\n\n## KYC Update Frequency\n\n- Full KYC update is required every 8 years for low-risk customers.\n- Full KYC update is required every 2 years for high-risk customers.\n\n## Accepted Address Proof\n\n- Aadhaar card\n- Passport\n- Driving license\n- Utility bill (not older than 3 months)\n\n## Mobile Number or Email Update\n\n- Updates can be done through branch or net banking.\n- OTP verification is mandatory for all profile updates.\n- Changes reflect within 30 minutes after successful verification.\n\n## Name Correction Policy\n\n- Minor spelling corrections are processed in 2 working days.\n- Legal name change requires supporting legal documents and branch verification.\n- [banking-charges-and-minimum-balance.md] # Banking Charges and Minimum Balance\n\n## Minimum Balance Rules\n\n- Urban branch savings account: minimum monthly average balance INR 10,000.\n- Semi-urban branch savings account: minimum monthly average balance INR 5,000.\n- Rural branch savings account: minimum monthly average balance INR 2,500.\n\n## Non-Maintenance Charges\n\n- Charge applies if average monthly balance is below required threshold.\n- Typical non-maintenance fee: INR 350 + applicable taxes.\n- Charges are posted at month-end billing cycle.\n\n## SMS and Debit Card Charges\n\n- SMS alert annual fee: INR 150 + taxes.\n- Debit card annual maintenance fee: INR 250 + taxes.\n\n## Account Closure Charges\n\n- No closure fee after 14 days from account opening.\n- Closure within first 14 days may attract INR 200 processing charge.\n- [banking-atm-cash-withdrawal-faq.md] # ATM Cash Withdrawal FAQ\n\n## Daily Withdrawal Limits\n\n- Standard savings account: up to INR 25,000 per day.\n- Premium savings account: up to INR 50,000 per day.\n- Limits may vary by card type and account risk profile.\n\n## Common Issues\n\n### Cash debited but not dispensed\n\n- Reversal is typically processed within 24 hours.\n- If not reversed in 24 hours, customer should raise a dispute with:\n  - Transaction date and time\n  - ATM location\n  - Last 4 digits of card\n\n### Card blocked after wrong PIN attempts\n\n- Card is temporarily blocked after 3 incorrect PIN attempts.\n- Block is auto-removed after 24 hours, or customer can request manual reset.\n\n## Safety Guidance\n\n- Never share OTP or PIN with anyone.\n- Bank staff will never ask for full card PIN.\n\nOutput rules:\n1) Start with empathy and direct acknowledgement.\n2) Provide clear next steps or resolution path.\n3) Reference KB/tool facts when relevant, without exposing internal chain-of-thought.\n4) Keep response under 180 words unless more detail is necessary.",
+    "id": "620d79de-caaa-4a5d-b97b-aecff1e15b84"
+  },
+  {
+    "type": "HumanMessage",
+    "content": "Customer: Svara (svara@gmail.com)\nCompany: Google\nTicket Subject: I am unable to get cheque book after 30 days of account opening.\nTicket Priority: medium\nTicket Description:\nI am unable to get cheque book after 30 days of account opening.\n\nCreate a draft response for the support agent. Use tools when the ticket likely needs billing, plan, or account-level checks.",
+    "id": "405d18b0-74ed-415b-bc17-440f15dbf248"
+  },
+  {
+    "type": "AIMessage",
+    "content": [],
+    "tool_calls": [
+      {
+        "name": "lookup_customer_plan",
+        "args": { "customer_email": "svara@gmail.com" },
+        "id": "call_4637343",
+        "type": "tool_call"
+      },
+      {
+        "name": "lookup_open_ticket_load",
+        "args": { "customer_email": "svara@gmail.com" },
+        "id": "call_4637344",
+        "type": "tool_call"
+      }
+    ],
+    "response_metadata": {
+      "finish_reason": "STOP",
+      "model_name": "gemini-3.8-flash",
+      "model_provider": "google_genai"
+    },
+    "usage_metadata": {
+      "input_tokens": 965,
+      "output_tokens": 187,
+      "total_tokens": 1152,
+      "input_token_details": { "cache_read": 0 },
+      "output_token_details": { "reasoning": 135 }
+    },
+    "name": "support_copilot_agent"
+  },
+  {
+    "type": "ToolMessage",
+    "name": "lookup_customer_plan",
+    "tool_call_id": "call_4637343",
+    "content": {
+      "tool": "lookup_customer_plan",
+      "customer_email": "svara@gmail.com",
+      "summary": "svara@gmail.com is on the starter plan with 24h SLA.",
+      "details": {
+        "plan_tier": "starter",
+        "sla_hours": 24,
+        "priority_queue": false
+      },
+      "recommended_action": "Use standard handling."
+    }
+  },
+  {
+    "type": "ToolMessage",
+    "name": "lookup_open_ticket_load",
+    "tool_call_id": "call_4637344",
+    "content": {
+      "tool": "lookup_open_ticket_load",
+      "customer_email": "svara@gmail.com",
+      "summary": "No customer record found for svara@gmail.com.",
+      "details": {
+        "customer_found": false,
+        "open_tickets": null,
+        "load_band": "unknown"
+      },
+      "recommended_action": "Ask agent to verify customer email before promising SLA."
+    }
+  },
+  {
+    "type": "AIMessage",
+    "content": [
+      {
+        "type": "text",
+        "text": "Hello Svara,\n\nThank you for reaching out, and I apologize for the inconvenience you have experienced with requesting your cheque book.\n\nUnder our savings account policy, cheque book services are activated after one month (30 days) from the date of account opening. As you have now reached this milestone, your account should be eligible to request and receive a cheque book.\n\nTo help us resolve this quickly, could you please confirm:\n1. The method you are using to request the cheque book (e.g., Mobile Banking, Net Banking, or branch visit)?\n2. Any specific error message or prompt you see when attempting to place the request?\n\nAlternatively, please reply with your registered account number, and we will be happy to verify your account status and initiate the request on your behalf. \n\nWe appreciate your patience and look forward to assisting you.\n\nBest regards,  \nCustomer Support Team"
+      }
+    ],
+    "response_metadata": {
+      "finish_reason": "STOP",
+      "model_name": "gemini-3.8-flash",
+      "model_provider": "google_genai"
+    },
+    "usage_metadata": {
+      "input_tokens": 1327,
+      "output_tokens": 504,
+      "total_tokens": 1831,
+      "input_token_details": { "cache_read": 0 },
+      "output_token_details": { "reasoning": 320 }
+    },
+    "name": "support_copilot_agent"
+  }
+]
+
+draft candiate
+
+{
+  "type": "text",
+  "text": "Hello Svara,\n\nThank you for reaching out, and I apologize for the inconvenience you have experienced with requesting your cheque book.\n\nUnder our savings account policy, cheque book services are activated after one month (30 days) from the date of account opening. As you have now reached this milestone, your account should be eligible to request and receive a cheque book.\n\nTo help us resolve this quickly, could you please confirm:\n1. The method you are using to request the cheque book (e.g., Mobile Banking, Net Banking, or branch visit)?\n2. Any specific error message or prompt you see when attempting to place the request?\n\nAlternatively, please reply with your registered account number, and we will be happy to verify your account status and initiate the request on your behalf. \n\nWe appreciate your patience and look forward to assisting you.\n\nBest regards,  \nCustomer Support Team"
+}
+
+draft text+tool calls
+
+
+{
+  "type": "text",
+  "text": "Hello Svara,\n\nThank you for reaching out, and I apologize for the inconvenience you have experienced with requesting your cheque book.\n\nUnder our savings account policy, cheque book services are activated after one month (30 days) from the date of account opening. As you have now reached this milestone, your account should be eligible to request and receive a cheque book.\n\nTo help us resolve this quickly, could you please confirm:\n1. The method you are using to request the cheque book (e.g., Mobile Banking, Net Banking, or branch visit)?\n2. Any specific error message or prompt you see when attempting to place the request?\n\nAlternatively, please reply with your registered account number, and we will be happy to verify your account status and initiate the request on your behalf. \n\nWe appreciate your patience and look forward to assisting you.\n\nBest regards,  \nCustomer Support Team",
+  "tool_calls": [
+    {
+      "tool_name": "lookup_customer_plan",
+      "tool_call_id": "call_4637343",
+      "arguments": { "customer_email": "svara@gmail.com" },
+      "status": "ok",
+      "summary": "svara@gmail.com is on the starter plan with 24h SLA.",
+      "output": {
+        "tool": "lookup_customer_plan",
+        "customer_email": "svara@gmail.com",
+        "summary": "svara@gmail.com is on the starter plan with 24h SLA.",
+        "details": {
+          "plan_tier": "starter",
+          "sla_hours": 24,
+          "priority_queue": false
+        },
+        "recommended_action": "Use standard handling."
+      }
+    },
+    {
+      "tool_name": "lookup_open_ticket_load",
+      "tool_call_id": "call_4637344",
+      "arguments": { "customer_email": "svara@gmail.com" },
+      "status": "ok",
+      "summary": "No customer record found for svara@gmail.com.",
+      "output": {
+        "tool": "lookup_open_ticket_load",
+        "customer_email": "svara@gmail.com",
+        "summary": "No customer record found for svara@gmail.com.",
+        "details": {
+          "customer_found": false,
+          "open_tickets": null,
+          "load_band": "unknown"
+        },
+        "recommended_action": "Ask agent to verify customer email before promising SLA."
+      }
+    }
+  ]
+}
+
+after memory added response
+{
+    "version": 2,
+    "ticket": {
+        "id": 10,
+        "subject": "explain about Account Closure Charges",
+        "priority": "urgent",
+        "status": "open"
+    },
+    "customer": {
+        "id": 6,
+        "email": "prasad@gmail.com",
+        "name": "Prasad",
+        "company": "TCS"
+    },
+    "signals": {
+        "memory_hit_count": 7,
+        "knowledge_hit_count": 4,
+        "tool_call_count": 2,
+        "tool_error_count": 0,
+        "knowledge_sources": [
+            "banking-charges-and-minimum-balance.md",
+            "saving-account-rule.md",
+            "banking-kyc-and-account-update-rules.md",
+            "banking-atm-cash-withdrawal-faq.md"
+        ]
+    },
+    "highlights": {
+        "memory": [
+        ],
+        "knowledge": [
+            "[banking-charges-and-minimum-balance.md] # Banking Charges and Minimum Balance\n\n## Minimum Balance Rules\n\n- Urban branch savings account: minimum monthly average balance INR 10,...",
+            "[saving-account-rule.md] # Saving Account Rule\n\nThis document defines key policy rules for saving account holders.\n\n## Mandatory Rules\n\n1. Cheque services are activated only aft...",
+            "[banking-kyc-and-account-update-rules.md] # KYC and Account Update Rules\n\n## KYC Update Frequency\n\n- Full KYC update is required every 8 years for low-risk customers.\n- Full KYC..."
+        ],
+        "tools": [
+            "prasad@gmail.com is on the enterprise plan with 1h SLA.",
+            "Customer prasad@gmail.com has 1 open ticket(s)."
+        ]
+    },
+    "memory_hits": [
+        {
+            "memory": "User was informed that closing their account within the first 14 days of opening incurs a processing charge of INR 200, while there is no closure fee after 14 days.",
+            "score": 0.85464450287578542,
+            "metadata": {
+                "type": "resolution",
+                "scope": "customer",
+                "scope_user_id": "prasad@gmail.com"
+            }
+        },
+        {
+            "memory": "To close their account, the user must clear any pending dues, transfer the remaining balance, and initiate the request via their nearest home branch or net banking.",
+            "score": 0.80547125763209237,
+            "metadata": {
+                "type": "resolution",
+                "scope": "customer",
+                "scope_user_id": "prasad@gmail.com"
+            }
+        },
+        {
+            "memory": "User's name is Prasad.",
+            "score": 0.72338357199251124,
+            "metadata": {
+                "type": "resolution",
+                "scope": "customer",
+                "scope_user_id": "prasad@gmail.com"
+            }
+        },
+        {
+            "memory": "User Prasad inquired about account closure charges for their bank account.",
+            "score": 0.89078827236348967,
+            "metadata": {
+                "type": "resolution",
+                "scope": "company",
+                "scope_user_id": "company::tcs"
+            }
+        },
+        {
+            "memory": "The bank's account closure policy states that closing an account within the first 14 days of opening incurs a processing charge of INR 200, while there is no closure fee after 14 days.",
+            "score": 0.85816474392396036,
+            "metadata": {
+                "type": "resolution",
+                "scope": "company",
+                "scope_user_id": "company::tcs"
+            }
+        },
+        {
+            "memory": "Prasad was informed that closing a bank account within the first 14 days of opening incurs a processing charge of INR 200, while there is no fee for closures after 14 days.",
+            "score": 0.83664696937052285,
+            "metadata": {
+                "type": "resolution",
+                "scope": "company",
+                "scope_user_id": "company::tcs"
+            }
+        },
+        {
+            "memory": "Prasad was advised that to close their account, they must clear any pending dues, transfer the remaining balance, and initiate the request via their home branch or net banking.",
+            "score": 0.79018117509076935,
+            "metadata": {
+                "type": "resolution",
+                "scope": "company",
+                "scope_user_id": "company::tcs"
+            }
+        }
+    ],
+    "knowledge_hits": [
+        {
+            "content": "# Banking Charges and Minimum Balance\n\n## Minimum Balance Rules\n\n- Urban branch savings account: minimum monthly average balance INR 10,000.\n- Semi-urban branch savings account: minimum monthly average balance INR 5,000.\n- Rural branch savings account: minimum monthly average balance INR 2,500.\n\n## Non-Maintenance Charges\n\n- Charge applies if average monthly balance is below required threshold.\n- Typical non-maintenance fee: INR 350 + applicable taxes.\n- Charges are posted at month-end billing cycle.\n\n## SMS and Debit Card Charges\n\n- SMS alert annual fee: INR 150 + taxes.\n- Debit card annual maintenance fee: INR 250 + taxes.\n\n## Account Closure Charges\n\n- No closure fee after 14 days from account opening.\n- Closure within first 14 days may attract INR 200 processing charge.",
+            "source": "banking-charges-and-minimum-balance.md",
+            "distance": 0.28761553764343262
+        },
+        {
+            "content": "# Saving Account Rule\n\nThis document defines key policy rules for saving account holders.\n\n## Mandatory Rules\n\n1. Cheque services are activated only after 1 month of Account openening.\n2. DMAT service is not available for saving account holders.",
+            "source": "saving-account-rule.md",
+            "distance": 0.40366852283477783
+        },
+        {
+            "content": "# KYC and Account Update Rules\n\n## KYC Update Frequency\n\n- Full KYC update is required every 8 years for low-risk customers.\n- Full KYC update is required every 2 years for high-risk customers.\n\n## Accepted Address Proof\n\n- Aadhaar card\n- Passport\n- Driving license\n- Utility bill (not older than 3 months)\n\n## Mobile Number or Email Update\n\n- Updates can be done through branch or net banking.\n- OTP verification is mandatory for all profile updates.\n- Changes reflect within 30 minutes after successful verification.\n\n## Name Correction Policy\n\n- Minor spelling corrections are processed in 2 working days.\n- Legal name change requires supporting legal documents and branch verification.",
+            "source": "banking-kyc-and-account-update-rules.md",
+            "distance": 0.44277745485305786
+        },
+        {
+            "content": "# ATM Cash Withdrawal FAQ\n\n## Daily Withdrawal Limits\n\n- Standard savings account: up to INR 25,000 per day.\n- Premium savings account: up to INR 50,000 per day.\n- Limits may vary by card type and account risk profile.\n\n## Common Issues\n\n### Cash debited but not dispensed\n\n- Reversal is typically processed within 24 hours.\n- If not reversed in 24 hours, customer should raise a dispute with:\n  - Transaction date and time\n  - ATM location\n  - Last 4 digits of card\n\n### Card blocked after wrong PIN attempts\n\n- Card is temporarily blocked after 3 incorrect PIN attempts.\n- Block is auto-removed after 24 hours, or customer can request manual reset.\n\n## Safety Guidance\n\n- Never share OTP or PIN with anyone.\n- Bank staff will never ask for full card PIN.",
+            "source": "banking-atm-cash-withdrawal-faq.md",
+            "distance": 0.48899918794631958
+        }
+    ],
+    "tool_calls": [
+        {
+            "tool_name": "lookup_customer_plan",
+            "tool_call_id": "call_157856",
+            "arguments": {
+                "customer_email": "prasad@gmail.com"
+            },
+            "status": "ok",
+            "summary": "prasad@gmail.com is on the enterprise plan with 1h SLA.",
+            "output": {
+                "tool": "lookup_customer_plan",
+                "customer_email": "prasad@gmail.com",
+                "summary": "prasad@gmail.com is on the enterprise plan with 1h SLA.",
+                "details": {
+                    "plan_tier": "enterprise",
+                    "sla_hours": 1,
+                    "priority_queue": true
+                },
+                "recommended_action": "Use priority handling."
+            },
+            "output_text": "{\"tool\": \"lookup_customer_plan\", \"customer_email\": \"prasad@gmail.com\", \"summary\": \"prasad@gmail.com is on the enterprise plan with 1h SLA.\", \"details\": {\"plan_tier\": \"enterprise\", \"sla_hours\": 1, \"priority_queue\": true}, \"recommended_action\": \"Use priority handling.\"}"
+        },
+        {
+            "tool_name": "lookup_open_ticket_load",
+            "tool_call_id": "call_157857",
+            "arguments": {
+                "customer_email": "prasad@gmail.com"
+            },
+            "status": "ok",
+            "summary": "Customer prasad@gmail.com has 1 open ticket(s).",
+            "output": {
+                "tool": "lookup_open_ticket_load",
+                "customer_email": "prasad@gmail.com",
+                "summary": "Customer prasad@gmail.com has 1 open ticket(s).",
+                "details": {
+                    "customer_found": true,
+                    "open_tickets": 1,
+                    "load_band": "light"
+                },
+                "recommended_action": "Handle as isolated incident."
+            },
+            "output_text": "{\"tool\": \"lookup_open_ticket_load\", \"customer_email\": \"prasad@gmail.com\", \"summary\": \"Customer prasad@gmail.com has 1 open ticket(s).\", \"details\": {\"customer_found\": true, \"open_tickets\": 1, \"load_band\": \"light\"}, \"recommended_action\": \"Handle as isolated incident.\"}"
+        }
+    ],
+    "agent_runtime": "langchain_create_agent"
+}
+
+first response of context used from DB
+
+ {
+    "id": 14,
+    "ticket_id": 10,
+    "content": "Hello Prasad,\n\nThank you for reaching out to us. I understand you are inquiring about our account closure charges, and I am glad to assist you with this information.\n\nHere is how our account closure fee policy works:\n\n- **Within the first 14 days:** Closing your account within the first 14 days of opening may attract a processing charge of **INR 200**.\n- **After 14 days:** There is **no closure fee** if you close your account after 14 days from the date of opening.\n\nIf you are planning to proceed with closing your account, please ensure that any pending dues are cleared and your remaining balance is transferred. You can initiate the closure request by visiting your nearest home branch or through net banking.\n\nPlease let us know if you need assistance with the closure process or have any further questions!\n\nWarm regards,  \nCustomer Support Team",
+    "context_used": "{\"version\": 2, \"ticket\": {\"id\": 10, \"subject\": \"explain about Account Closure Charges\", \"priority\": \"urgent\", \"status\": \"open\"}, \"customer\": {\"id\": 6, \"email\": \"prasad@gmail.com\", \"name\": \"Prasad\", \"company\": \"TCS\"}, \"signals\": {\"memory_hit_count\": 0, \"knowledge_hit_count\": 4, \"tool_call_count\": 2, \"tool_error_count\": 0, \"knowledge_sources\": [\"banking-charges-and-minimum-balance.md\", \"saving-account-rule.md\", \"banking-kyc-and-account-update-rules.md\", \"banking-atm-cash-withdrawal-faq.md\"]}, \"highlights\": {\"memory\": [], \"knowledge\": [\"[banking-charges-and-minimum-balance.md] # Banking Charges and Minimum Balance\\n\\n## Minimum Balance Rules\\n\\n- Urban branch savings account: minimum monthly average balance INR 10,...\", \"[saving-account-rule.md] # Saving Account Rule\\n\\nThis document defines key policy rules for saving account holders.\\n\\n## Mandatory Rules\\n\\n1. Cheque services are activated only aft...\", \"[banking-kyc-and-account-update-rules.md] # KYC and Account Update Rules\\n\\n## KYC Update Frequency\\n\\n- Full KYC update is required every 8 years for low-risk customers.\\n- Full KYC...\"], \"tools\": [\"prasad@gmail.com is on the enterprise plan with 1h SLA.\", \"Customer prasad@gmail.com has 1 open ticket(s).\"]}, \"memory_hits\": [], \"knowledge_hits\": [{\"content\": \"# Banking Charges and Minimum Balance\\n\\n## Minimum Balance Rules\\n\\n- Urban branch savings account: minimum monthly average balance INR 10,000.\\n- Semi-urban branch savings account: minimum monthly average balance INR 5,000.\\n- Rural branch savings account: minimum monthly average balance INR 2,500.\\n\\n## Non-Maintenance Charges\\n\\n- Charge applies if average monthly balance is below required threshold.\\n- Typical non-maintenance fee: INR 350 + applicable taxes.\\n- Charges are posted at month-end billing cycle.\\n\\n## SMS and Debit Card Charges\\n\\n- SMS alert annual fee: INR 150 + taxes.\\n- Debit card annual maintenance fee: INR 250 + taxes.\\n\\n## Account Closure Charges\\n\\n- No closure fee after 14 days from account opening.\\n- Closure within first 14 days may attract INR 200 processing charge.\", \"source\": \"banking-charges-and-minimum-balance.md\", \"distance\": 0.2876155376434326}, {\"content\": \"# Saving Account Rule\\n\\nThis document defines key policy rules for saving account holders.\\n\\n## Mandatory Rules\\n\\n1. Cheque services are activated only after 1 month of Account openening.\\n2. DMAT service is not available for saving account holders.\", \"source\": \"saving-account-rule.md\", \"distance\": 0.40366852283477783}, {\"content\": \"# KYC and Account Update Rules\\n\\n## KYC Update Frequency\\n\\n- Full KYC update is required every 8 years for low-risk customers.\\n- Full KYC update is required every 2 years for high-risk customers.\\n\\n## Accepted Address Proof\\n\\n- Aadhaar card\\n- Passport\\n- Driving license\\n- Utility bill (not older than 3 months)\\n\\n## Mobile Number or Email Update\\n\\n- Updates can be done through branch or net banking.\\n- OTP verification is mandatory for all profile updates.\\n- Changes reflect within 30 minutes after successful verification.\\n\\n## Name Correction Policy\\n\\n- Minor spelling corrections are processed in 2 working days.\\n- Legal name change requires supporting legal documents and branch verification.\", \"source\": \"banking-kyc-and-account-update-rules.md\", \"distance\": 0.44277745485305786}, {\"content\": \"# ATM Cash Withdrawal FAQ\\n\\n## Daily Withdrawal Limits\\n\\n- Standard savings account: up to INR 25,000 per day.\\n- Premium savings account: up to INR 50,000 per day.\\n- Limits may vary by card type and account risk profile.\\n\\n## Common Issues\\n\\n### Cash debited but not dispensed\\n\\n- Reversal is typically processed within 24 hours.\\n- If not reversed in 24 hours, customer should raise a dispute with:\\n  - Transaction date and time\\n  - ATM location\\n  - Last 4 digits of card\\n\\n### Card blocked after wrong PIN attempts\\n\\n- Card is temporarily blocked after 3 incorrect PIN attempts.\\n- Block is auto-removed after 24 hours, or customer can request manual reset.\\n\\n## Safety Guidance\\n\\n- Never share OTP or PIN with anyone.\\n- Bank staff will never ask for full card PIN.\", \"source\": \"banking-atm-cash-withdrawal-faq.md\", \"distance\": 0.4889991879463196}], \"tool_calls\": [{\"tool_name\": \"lookup_customer_plan\", \"tool_call_id\": \"call_157856\", \"arguments\": {\"customer_email\": \"prasad@gmail.com\"}, \"status\": \"ok\", \"summary\": \"prasad@gmail.com is on the enterprise plan with 1h SLA.\", \"output\": {\"tool\": \"lookup_customer_plan\", \"customer_email\": \"prasad@gmail.com\", \"summary\": \"prasad@gmail.com is on the enterprise plan with 1h SLA.\", \"details\": {\"plan_tier\": \"enterprise\", \"sla_hours\": 1, \"priority_queue\": true}, \"recommended_action\": \"Use priority handling.\"}, \"output_text\": \"{\\\"tool\\\": \\\"lookup_customer_plan\\\", \\\"customer_email\\\": \\\"prasad@gmail.com\\\", \\\"summary\\\": \\\"prasad@gmail.com is on the enterprise plan with 1h SLA.\\\", \\\"details\\\": {\\\"plan_tier\\\": \\\"enterprise\\\", \\\"sla_hours\\\": 1, \\\"priority_queue\\\": true}, \\\"recommended_action\\\": \\\"Use priority handling.\\\"}\"}, {\"tool_name\": \"lookup_open_ticket_load\", \"tool_call_id\": \"call_157857\", \"arguments\": {\"customer_email\": \"prasad@gmail.com\"}, \"status\": \"ok\", \"summary\": \"Customer prasad@gmail.com has 1 open ticket(s).\", \"output\": {\"tool\": \"lookup_open_ticket_load\", \"customer_email\": \"prasad@gmail.com\", \"summary\": \"Customer prasad@gmail.com has 1 open ticket(s).\", \"details\": {\"customer_found\": true, \"open_tickets\": 1, \"load_band\": \"light\"}, \"recommended_action\": \"Handle as isolated incident.\"}, \"output_text\": \"{\\\"tool\\\": \\\"lookup_open_ticket_load\\\", \\\"customer_email\\\": \\\"prasad@gmail.com\\\", \\\"summary\\\": \\\"Customer prasad@gmail.com has 1 open ticket(s).\\\", \\\"details\\\": {\\\"customer_found\\\": true, \\\"open_tickets\\\": 1, \\\"load_band\\\": \\\"light\\\"}, \\\"recommended_action\\\": \\\"Handle as isolated incident.\\\"}\"}], \"agent_runtime\": \"langchain_create_agent\"}",
+    "status": "accepted",
+    "created_at": "2026-10-05 06:57:49"
+}

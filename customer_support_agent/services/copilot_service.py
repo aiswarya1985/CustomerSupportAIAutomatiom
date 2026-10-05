@@ -19,6 +19,7 @@ from loguru import logger
 
 
 class SupportCopilot:
+
     def __init__(self, settings: Settings):
         if not settings.GOOGLE_API_KEY:
             raise RuntimeError(
@@ -130,6 +131,7 @@ class SupportCopilot:
             draft_content=draft_content,
             context_used=context_used or {},
         )
+        logger.info(f"Saving accepted resolution to memory for customer_email: {customer_email}, customer_company: {customer_company}, ticket_subject: {ticket_subject}, entity_links: {entity_links}")
         for scope_user_id in self._memory_scope_ids(
             customer_email=customer_email,
             customer_company=customer_company,
@@ -142,83 +144,166 @@ class SupportCopilot:
                 entity_links=entity_links,
             )
 
-    def list_customer_memories(
+    def _extract_entity_links(
         self,
-        customer_email: str,
-        customer_company: str | None = None,
-        limit: int = 20,
-    ) -> list[dict[str, Any]]:
-        scope_user_ids = self._memory_scope_ids(
-            customer_email=customer_email,
-            customer_company=customer_company,
-        )
-        raw_hits: list[dict[str, Any]] = []
-        for scope_user_id in scope_user_ids:
-            hits = self.memory.list_memories(user_id=scope_user_id, limit=max(1, limit))
-            raw_hits.extend(self._annotate_memory_scope(hits=hits, scope_user_id=scope_user_id))
-        return self._dedupe_memory_hits(raw_hits, limit=max(1, limit))
+        ticket_subject: str,
+        ticket_description: str,
+        draft_content: str,
+        context_used: dict[str, Any],
+    ) -> list[str]:
+        # Defensive: if draft_content is a stringified dict (contains Gemini signature),
+        # extract only the actual text before scanning for patterns.
+        draft_content = self._clean_draft_text(draft_content)
+
+        merged_text = f"{ticket_subject}\n{ticket_description}\n{draft_content}"
+        merged_lower = merged_text.lower()
+        links: list[str] = []
+
+        endpoints = re.findall(r"/[a-zA-Z0-9][a-zA-Z0-9/_-]{2,}", merged_text)
+        for endpoint in self._unique_ordered(endpoints)[:3]:
+            links.append(f"endpoint:{endpoint}")
+
+        status_codes = re.findall(r"\b([45]\d\d)\b", merged_text)
+        for code in self._unique_ordered(status_codes)[:4]:
+            links.append(f"http_status:{code}")
+
+        regions = [
+            ("EU", [" eu ", "europe", "emea"]),
+            ("US", [" us ", "united states", "na "]),
+            ("APAC", [" apac ", "asia pacific"]),
+            ("India", [" india ", " in "]),
+        ]
+        padded = f" {merged_lower} "
+        for region, markers in regions:
+            if any(marker in padded for marker in markers):
+                links.append(f"region:{region}")
+
+        integrations = ["shopify", "stripe", "salesforce", "slack", "quickbooks", "hubspot", "zendesk"]
+        for integration in integrations:
+            if integration in merged_lower:
+                links.append(f"integration:{integration}")
+
+        for tool_call in context_used.get("tool_calls", []):
+            output = tool_call.get("output") or {}
+            details = output.get("details") if isinstance(output, dict) else None
+            if not isinstance(details, dict):
+                continue
+            plan = details.get("plan_tier")
+            if plan:
+                links.append(f"plan:{plan}")
+            risk = details.get("risk_level")
+            if risk:
+                links.append(f"billing_risk:{risk}")
+
+        return self._unique_ordered([item for item in links if item])[:12]
+
+
+    @staticmethod
+    def _clean_draft_text(draft_content: str) -> str:
+        """
+        Strip the stringified dict wrapper and Gemini signature from draft_content.
+        If draft_content looks like "{'type': 'text', 'text': '...', 'extras': {...}}",
+        return just the 'text' value.
+        """
+        if not isinstance(draft_content, str):
+            return str(draft_content) if draft_content else ""
+
+        stripped = draft_content.strip()
+
+        # Case 1: stringified dict with 'type': 'text'
+        if stripped.startswith("{'type': 'text'") or stripped.startswith('{"type": "text"'):
+            try:
+                import ast
+                parsed = ast.literal_eval(stripped)
+                if isinstance(parsed, dict) and parsed.get("type") == "text":
+                    return str(parsed.get("text", "")).strip()
+            except (ValueError, SyntaxError):
+                pass
+
+        # Case 2: raw base64-ish garbage (very long single token)
+        # If the string is one long base64 blob, treat it as empty.
+        if len(stripped) > 500 and " " not in stripped[:200]:
+            return ""
+
+        return draft_content
+        
+    def list_customer_memories(
+            self,
+            customer_email: str,
+            customer_company: str | None = None,
+            limit: int = 20,
+        ) -> list[dict[str, Any]]:
+            scope_user_ids = self._memory_scope_ids(
+                customer_email=customer_email,
+                customer_company=customer_company,
+            )
+            raw_hits: list[dict[str, Any]] = []
+            for scope_user_id in scope_user_ids:
+                hits = self.memory.list_memories(user_id=scope_user_id, limit=max(1, limit))
+                raw_hits.extend(self._annotate_memory_scope(hits=hits, scope_user_id=scope_user_id))
+            return self._dedupe_memory_hits(raw_hits, limit=max(1, limit))
 
     def search_customer_memories(
-        self,
-        customer_email: str,
-        query: str,
-        customer_company: str | None = None,
-        limit: int = 10,
-    ) -> list[dict[str, Any]]:
-        logger.info(f"Searching customer memories for email in copilot service: {customer_email}, company: {customer_company}, query: '{query}', limit: {limit}")
-        return self._search_memory_scopes(
-            query=query,
-            customer_email=customer_email,
-            customer_company=customer_company,
-            limit=limit,
-        )
+            self,
+            customer_email: str,
+            query: str,
+            customer_company: str | None = None,
+            limit: int = 10,
+        ) -> list[dict[str, Any]]:
+            logger.info(f"Searching customer memories for email in copilot service: {customer_email}, company: {customer_company}, query: '{query}', limit: {limit}")
+            return self._search_memory_scopes(
+                query=query,
+                customer_email=customer_email,
+                customer_company=customer_company,
+                limit=limit,
+            )
 
 
     def _search_memory_scopes(
-        self,
-        query: str,
-        customer_email: str,
-        customer_company: str | None,
-        limit: int,
-    ) -> list[dict[str, Any]]:
-        per_scope_limit = max(1, limit)
-        scope_user_ids = self._memory_scope_ids(
-            customer_email=customer_email,
-            customer_company=customer_company,
-        )
-        raw_hits: list[dict[str, Any]] = []
-        for scope_user_id in scope_user_ids:
-            try:              
-                hits = self.memory.search(query=query, user_id=scope_user_id, limit=per_scope_limit)
-                logger.info(f"memory hits:{hits}")
-                raw_hits.extend(self._annotate_memory_scope(hits=hits, scope_user_id=scope_user_id))
-                logger.info(f"Total memory hits after annotation: {raw_hits}")   
-            except Exception as exc:           
-             logger.error(
-                f"Memory search failed for scope={scope_user_id!r}: "
-                f"{type(exc).__name__}: {exc}"
-            )  
-        return self._dedupe_memory_hits(raw_hits, limit=per_scope_limit * len(scope_user_ids))
-    
+            self,
+            query: str,
+            customer_email: str,
+            customer_company: str | None,
+            limit: int,
+        ) -> list[dict[str, Any]]:
+            per_scope_limit = max(1, limit)
+            scope_user_ids = self._memory_scope_ids(
+                customer_email=customer_email,
+                customer_company=customer_company,
+            )
+            raw_hits: list[dict[str, Any]] = []
+            for scope_user_id in scope_user_ids:
+                try:              
+                    hits = self.memory.search(query=query, user_id=scope_user_id, limit=per_scope_limit)
+                    logger.info(f"memory hits:{hits}")
+                    raw_hits.extend(self._annotate_memory_scope(hits=hits, scope_user_id=scope_user_id))
+                    logger.info(f"Total memory hits after annotation: {raw_hits}")   
+                except Exception as exc:           
+                 logger.error(
+                    f"Memory search failed for scope={scope_user_id!r}: "
+                    f"{type(exc).__name__}: {exc}"
+                )  
+            return self._dedupe_memory_hits(raw_hits, limit=per_scope_limit * len(scope_user_ids))
+        
     def _memory_scope_ids(self, customer_email: str, customer_company: str | None) -> list[str]:
-        scope_user_ids = [customer_email.strip().lower()]
-        company_scope = self._company_scope_user_id(customer_company)
-        if company_scope:
-            scope_user_ids.append(company_scope)
-        return self._unique_ordered(scope_user_ids)
+            scope_user_ids = [customer_email.strip().lower()]
+            company_scope = self._company_scope_user_id(customer_company)
+            if company_scope:
+                scope_user_ids.append(company_scope)
+            return self._unique_ordered(scope_user_ids)
 
     @staticmethod
     def _company_scope_user_id(customer_company: str | None) -> str | None:
-        if not customer_company:
-            return None
-        lowered = customer_company.strip().lower()
-        if not lowered:
-            return None
-        normalized = re.sub(r"[^a-z0-9]+", "-", lowered).strip("-")
-        if not normalized:
-            return None
-        return f"company::{normalized}"
-    
+            if not customer_company:
+                return None
+            lowered = customer_company.strip().lower()
+            if not lowered:
+                return None
+            normalized = re.sub(r"[^a-z0-9]+", "-", lowered).strip("-")
+            if not normalized:
+                return None
+            return f"company::{normalized}"
+        
     @staticmethod
     def _annotate_memory_scope(
         hits: list[dict[str, Any]],
@@ -238,27 +323,35 @@ class SupportCopilot:
 
     @staticmethod
     def _dedupe_memory_hits(hits: list[dict[str, Any]], limit: int) -> list[dict[str, Any]]:
-        deduped: list[dict[str, Any]] = []
-        seen: set[str] = set()
-        for hit in hits:
-            memory_text = str(hit.get("memory", "")).strip()
-            if not memory_text:
-                continue
-            key = memory_text.lower()
-            if key in seen:
-                continue
-            seen.add(key)
-            deduped.append(hit)
-            logger.info(f"Deduped memory hit: {hit}")
-            if len(deduped) >= max(1, limit):
-                break
-        return deduped
+            deduped: list[dict[str, Any]] = []
+            seen: set[str] = set()
+            for hit in hits:
+                memory_text = str(hit.get("memory", "")).strip()
+                if not memory_text:
+                    continue
+                key = memory_text.lower()
+                if key in seen:
+                    continue
+                seen.add(key)
+                deduped.append(hit)
+                logger.info(f"Deduped memory hit: {hit}")
+                if len(deduped) >= max(1, limit):
+                    break
+            return deduped
 
     @staticmethod
     def _extract_content(response: Any) -> str:
         content = getattr(response, "content", response)
         if isinstance(content, list):
-            return "\n".join(str(item) for item in content)
+            parts = []
+            for item in content:
+                if isinstance(item, dict) and item.get("type") == "text":
+                    parts.append(item.get("text", ""))
+                elif isinstance(item, str):
+                    parts.append(item)
+                else:
+                    parts.append(str(item))
+            return "\n".join(parts)
         return str(content)
 
     @staticmethod
@@ -489,56 +582,7 @@ class SupportCopilot:
             return clean
         return f"{clean[: limit - 3]}..."
 
-    def _extract_entity_links(
-        self,
-        ticket_subject: str,
-        ticket_description: str,
-        draft_content: str,
-        context_used: dict[str, Any],
-    ) -> list[str]:
-        merged_text = f"{ticket_subject}\n{ticket_description}\n{draft_content}"
-        merged_lower = merged_text.lower()
-        links: list[str] = []
-
-        endpoints = re.findall(r"/[a-zA-Z0-9][a-zA-Z0-9/_-]{2,}", merged_text)
-        for endpoint in self._unique_ordered(endpoints)[:3]:
-            links.append(f"endpoint:{endpoint}")
-
-        status_codes = re.findall(r"\b([45]\d\d)\b", merged_text)
-        for code in self._unique_ordered(status_codes)[:4]:
-            links.append(f"http_status:{code}")
-
-        regions = [
-            ("EU", [" eu ", "europe", "emea"]),
-            ("US", [" us ", "united states", "na "]),
-            ("APAC", [" apac ", "asia pacific"]),
-            ("India", [" india ", " in "]),
-        ]
-        padded = f" {merged_lower} "
-        for region, markers in regions:
-            if any(marker in padded for marker in markers):
-                links.append(f"region:{region}")
-
-        integrations = ["shopify", "stripe", "salesforce", "slack", "quickbooks", "hubspot", "zendesk"]
-        for integration in integrations:
-            if integration in merged_lower:
-                links.append(f"integration:{integration}")
-
-        for tool_call in context_used.get("tool_calls", []):
-            output = tool_call.get("output") or {}
-            details = output.get("details") if isinstance(output, dict) else None
-            if not isinstance(details, dict):
-                continue
-            plan = details.get("plan_tier")
-            if plan:
-                links.append(f"plan:{plan}")
-            risk = details.get("risk_level")
-            if risk:
-                links.append(f"billing_risk:{risk}")
-
-        return self._unique_ordered([item for item in links if item])[:12]
-
-
+    
 
     def _fallback_generate_text(
         self,
