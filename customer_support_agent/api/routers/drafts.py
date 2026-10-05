@@ -24,11 +24,33 @@ def get_draft_route(
     drafts_repo: DraftsRepository = Depends(get_drafts_repository),
     draft_service: DraftService = Depends(get_draft_service),
 ) -> dict:
+    
     draft = drafts_repo.get_latest_for_ticket(ticket_id)
     if not draft:
         raise HTTPException(status_code=404, detail="Draft not found")
-    return draft_service.serialize_draft(draft)
 
+    serialized = draft_service.serialize_draft(draft)
+    context = serialized.get("context_used") or {}
+
+    # Recompute memory hits live, so the count reflects current Mem0 state
+    relation = drafts_repo.get_ticket_and_customer_by_draft(draft["id"])
+    if relation:
+        try:
+            copilot = get_copilot()
+            query = f"{relation['subject']} {relation.get('priority', '')}".strip()
+            hits = copilot._search_memory_scopes(
+                query=query,
+                customer_email=relation["customer_email"],
+                customer_company=relation.get("customer_company"),
+                limit=8,
+            )
+            context["memory_hits"] = hits
+            context.setdefault("signals", {})["memory_hit_count"] = len(hits)
+        except Exception as exc:
+            logger.exception("Memory refresh failed on read for draft_id=%s: %s", draft["id"], exc)
+
+    serialized["context_used"] = context
+    return serialized
 
 @router.patch("/api/drafts/{draft_id}", response_model=DraftResponse)
 def update_draft_route(

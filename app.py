@@ -317,7 +317,7 @@ else:
                     logger.info(f"Accepting draft for ticket_id from UI: {selected_ticket['id']}")
                     updated = update_draft(draft_data["id"], edited_content, "accepted")
                     st.session_state[f"draft_{selected_ticket['id']}"] = updated
-                    st.success("Draft accepted and memory updated")
+                    st.success("Draft accepted and memory updated")                   
                 except Exception as exc:
                     st.error(f"Failed to accept draft: {exc}")
 
@@ -326,7 +326,7 @@ else:
                 try:
                     updated = update_draft(draft_data["id"], edited_content, "discarded")
                     st.session_state[f"draft_{selected_ticket['id']}"] = updated
-                    st.info("Draft discarded")
+                    st.info("Draft discarded")                   
                 except Exception as exc:
                     st.error(f"Failed to discard draft: {exc}")
 
