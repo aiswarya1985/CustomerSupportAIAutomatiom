@@ -57,6 +57,7 @@ class DraftsRepository:
         content: str | None = None,
         status: str | None = None,
     ) -> dict[str, Any] | None:
+        
         updates: list[str] = []
         values: list[Any] = []
 
