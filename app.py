@@ -287,6 +287,7 @@ else:
 
     if st.button("Generate Draft", use_container_width=True):
         try:
+            logger.info(f"Generating draft for ticket_id: {selected_ticket['id']}")
             new_draft = trigger_draft(selected_ticket["id"])
             st.session_state[f"draft_{selected_ticket['id']}"] = new_draft
             st.success("Draft generated")
@@ -339,6 +340,7 @@ else:
     )
     if st.button("Run Memory Probe", use_container_width=True):
         try:
+            logger.info(f"Running memory probe for customer_id: {selected_ticket['customer_id']}, query: {probe_query}")
             hits = search_memory(selected_ticket["customer_id"], probe_query)
             if not hits:
                 st.info("No memory hits for this query yet.")

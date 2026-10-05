@@ -1,0 +1,152 @@
+###############Ingest docs Flow####################################
+###################################################################
+1. Streamlit UI
+   Sidebar → "Ingest Knowledge Base" button clicked
+       ↓
+2. Streamlit calls `ingest_knowledge(clear_existing=False)` in app.py
+       ↓
+3. HTTP: POST http://localhost:8000/api/knowledge/ingest
+   Body: {"clear_existing": false}
+       ↓
+4. FastAPI router — knowledge.py: ingest_knowledge_route()
+       ↓
+5. Depends(get_knowledge_service) → dependencies.py
+       ↓
+6. knowledge_service = KnowledgeService(settings=...)
+       ↓
+7. knowledge_service.ingest(clear_existing=False)
+   (knowledge_service.py)
+       ↓
+8. rag_service = KnowledgeBaseService(settings=...)
+   (chroma_kb.py)  ← a NEW instance, created inside .ingest()
+       ↓
+9. rag_service.ingest_directory(directory=..., clear_existing=...)
+       ↓
+10. Inside ingest_directory:
+    a. If clear_existing: delete the collection
+    b. Glob *.md and *.txt files
+    c. For each file:
+       - Read text
+       - Split into chunks with RecursiveCharacterTextSplitter
+       - For each chunk, compute doc_id
+    d. self._collection.upsert(documents=docs, ids=ids, metadatas=metadatas)
+       ↓
+11. Return {"files_indexed": N, "chunks_indexed": M, "collection_count": K}
+       ↓
+12. Back up the chain to Streamlit
+       ↓
+13. UI shows: "Indexed 4 files / 4 chunks"
+###################################################################
+
+
+###################################################################
+
+1. Streamlit UI → "Create Ticket" form submitted
+       ↓
+2. Streamlit validates email + subject + description  ← your UI does this
+       ↓
+3. HTTP: POST http://localhost:8000/api/tickets
+   Body: {customer_email, customer_name, customer_company, subject, description, priority, auto_generate}
+       ↓
+4. tickets.py: create_ticket_route()  ✅ your "call ticket.py"
+       ↓
+5. customers_repo.create_or_get(email, name, company)  ✅ "insert data to customer table"
+       ↓
+6. tickets_repo.create(customer_id, subject, description, priority)  ✅ "insert data to ticket table"
+       ↓
+7. merged = {**ticket, "customer_email": ..., "customer_name": ..., "customer_company": ...}
+   ✅ "merge both information"
+       ↓
+8. if payload.auto_generate:
+       background_tasks.add_task(_generate_and_store_draft_background, ...)
+   ✅ "add the draft generation to background tasks"
+       ↓
+9. return draft_service.serialize_ticket(merged)
+   ✅ "return the information serialized way"
+
+###################################################################
+
+
+###################################################################
+Streamlit page load / refresh
+    ↓
+fetch_tickets() in app.py
+    ↓
+GET http://localhost:8000/api/tickets
+    ↓
+FastAPI routes to list_tickets_route() in tickets.py
+    ↓
+Depends: TicketsRepository, DraftService injected
+    ↓
+tickets_repo.list()  →  SQLite SELECT with JOIN
+    ↓
+For each row: draft_service.serialize_ticket(row)
+    ↓
+Return list[TicketResponse]
+    ↓
+HTTP 200 JSON array back to Streamlit
+    ↓
+Streamlit renders the sidebar dropdown
+###################################################################
+
+
+###################################################################
+1. Streamlit: user clicks "Run Memory Probe" button
+       ↓
+2. Streamlit calls search_memory(customer_id, query, limit) in app.py
+       ↓
+3. HTTP: GET http://localhost:8000/api/customers/{customer_id}/memory-search?query=...&limit=...
+       ↓
+4. FastAPI routes to memory.py: customer_memory_search_route()   ✅ your "route->memory.py"
+       ↓
+5. Depends(get_customers_repository) → CustomersRepository()
+   Depends(get_copilot_or_503)         → SupportCopilot (cached)
+       ↓
+6. customer = customers_repo.get_by_id(customer_id)             ✅ your "get customer id"
+   → If None → raise 404
+   → If query empty → raise 400
+       ↓
+7. copilot.search_customer_memories(                             ✅ your "_search_memory_scopes"
+       customer_email=customer["email"],
+       query=query,
+       customer_company=customer.get("company"),
+       limit=min(limit, 25),
+   )
+       ↓
+8. Inside copilot → _search_memory_scopes(query, email, company, limit):
+     a. scope_user_ids = _memory_scope_ids(email, company)
+           → ['aiswarya.lakshmi@gmail.com', 'company::tcs']
+     b. For each scope:
+           hits = self.memory.search(query, user_id=scope, limit=...)     ← Mem0 v3 API call
+           hits = _annotate_memory_scope(hits, scope_user_id)             ✅ your "annotated hits"
+           raw_hits.extend(hits)
+     c. return _dedupe_memory_hits(raw_hits, limit=...)
+           → removes exact-text duplicates
+       ↓
+9. Returns list[dict] with up to 2×limit hits (each tagged with scope)  ✅ your "hits: total memory hits"
+       ↓
+10. memory.py wraps in:
+      {
+          "customer_id": customer_id,
+          "customer_email": customer["email"],
+          "query": query,
+          "results": results,
+      }
+       ↓
+11. HTTP 200 JSON back to Streamlit
+       ↓
+12. Streamlit displays each hit in an expander:
+      - st.success(f"Found {len(hits)} memory hit(s).")
+      - For each hit: expander with memory text + metadata
+return result
+
+###################################################################
+
+
+
+
+
+
+
+
+

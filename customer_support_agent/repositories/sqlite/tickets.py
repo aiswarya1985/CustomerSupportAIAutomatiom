@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from typing import Any
 
+from loguru import logger
+
 from customer_support_agent.repositories.sqlite.base import connect, row_to_dict
 
 class TicketsRepository:
@@ -44,6 +46,7 @@ class TicketsRepository:
             return [dict(row) for row in rows]
 
     def get_by_id(self, ticket_id: int) -> dict[str, Any] | None:
+        logger.info(f"Fetching ticket with ticket_id: {ticket_id}")
         with connect() as conn:
             row = conn.execute(
                 """

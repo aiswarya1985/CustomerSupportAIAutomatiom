@@ -11,7 +11,7 @@ from customer_support_agent.api.dependencies import (
 from customer_support_agent.repositories.sqlite.customers import CustomersRepository
 from customer_support_agent.schemas.api import CustomerMemoriesResponse, CustomerMemorySearchResponse
 from customer_support_agent.services.copilot_service import SupportCopilot
-
+from loguru import logger
 router = APIRouter()
 
 
@@ -47,6 +47,7 @@ def customer_memory_search_route(
     customers_repo: CustomersRepository = Depends(get_customers_repository),
     copilot: SupportCopilot = Depends(get_copilot_or_503),
 ) -> dict:
+    logger.info(f"Searching memories for customer_id: {customer_id}, query: '{query}', limit: {limit}") 
     customer = customers_repo.get_by_id(customer_id)
     if not customer:
         raise HTTPException(status_code=404, detail="Customer not found")

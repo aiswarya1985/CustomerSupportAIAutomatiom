@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from typing import Any
 
+from loguru import logger
+
 from customer_support_agent.repositories.sqlite.base import connect, row_to_dict
 
 
@@ -13,6 +15,7 @@ class DraftsRepository:
         context_used: str | None = None,
         status: str = "pending",
     ) -> dict[str, Any]:
+        logger.info(f"Creating draft for ticket_id in drafts repository: {ticket_id}, status: {status}")
         with connect() as conn:
             cursor = conn.execute(
                 """

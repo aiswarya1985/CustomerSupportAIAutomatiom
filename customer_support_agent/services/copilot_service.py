@@ -50,7 +50,7 @@ class SupportCopilot:
     def generate_draft(self, ticket: dict[str, Any], customer: dict[str, Any]) -> dict[str, Any]:
         query = f"{ticket['subject']}\n{ticket['description']}"
         customer_email = customer["email"]
-        logger.info("Entering generate_draft") 
+        logger.info("Entering generate_draft in copilot_service.py") 
         memory_hits = self._search_memory_scopes(
             query=query,
             customer_email=customer_email,
@@ -81,6 +81,7 @@ class SupportCopilot:
         logger.info(f"draft_text: {draft_text}, tool_calls: {tool_calls}")
         used_fallback = False
         if not draft_text:
+            logger.info("invoking fallback generation due to empty draft_text")
             draft_text = self._fallback_generate_text(
                 ticket=ticket,
                 customer=customer,
@@ -90,6 +91,7 @@ class SupportCopilot:
             )
             used_fallback = True
         if not draft_text:
+            logger.info("invoking deterministic fallback generation due to empty draft_text after fallback")
             draft_text = self._deterministic_fallback(ticket=ticket, customer=customer, tool_calls=tool_calls)
             used_fallback = True
 
@@ -163,6 +165,7 @@ class SupportCopilot:
         customer_company: str | None = None,
         limit: int = 10,
     ) -> list[dict[str, Any]]:
+        logger.info(f"Searching customer memories for email in copilot service: {customer_email}, company: {customer_company}, query: '{query}', limit: {limit}")
         return self._search_memory_scopes(
             query=query,
             customer_email=customer_email,
@@ -323,6 +326,7 @@ class SupportCopilot:
         self, agent_result: Any
     ) -> tuple[str, list[dict[str, Any]]]:
         raw_messages: Any
+        logger.info("entering in _extract_agent_draft_and_tool_calls")
         if isinstance(agent_result, dict):
             raw_messages = agent_result.get("messages") or []
         else:
@@ -331,11 +335,13 @@ class SupportCopilot:
         messages = [item for item in raw_messages if isinstance(item, BaseMessage)]
 
         draft_text = ""
+        logger.info(f"Extracting draft from messages: {messages}")
         for message in reversed(messages):
             if not isinstance(message, AIMessage):
                 continue
             candidate = self._extract_content(message).strip()
             if candidate:
+                logger.info(f"Draft candidate found: {candidate}")
                 draft_text = candidate
                 break
 

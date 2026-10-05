@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from typing import Any
 
+from loguru import logger
+
 from customer_support_agent.repositories.sqlite.base import connect, row_to_dict
 
 
@@ -38,6 +40,7 @@ class CustomersRepository:
             return row_to_dict(created) or {}
 
     def get_by_id(self, customer_id:int)-> dict[str,Any] | None:
+        logger.info(f"Fetching customer with customer_id: {customer_id}")
         with connect() as conn:
             row = conn.execute("SELECT * FROM customers WHERE id = ?", (customer_id,)).fetchone()
             return row_to_dict(row)
