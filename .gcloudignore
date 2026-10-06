@@ -1,0 +1,64 @@
+# Git / VCS
+.git
+.gitignore
+.gcloudignore
+.dockerignore
+
+# Python caches / venvs
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+genv/
+.confluence_agent/
+enterprise_env/
+
+# Build artifacts
+build/
+dist/
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+wheels/
+sdist/
+var/
+parts/
+*.egg-info/
+*.egg
+.installed.cfg
+
+# Secrets / env
+.env
+.env.*
+!.env.example
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Docs / misc
+README.md
+docs/
+commands.md
+.logfire/
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfvars
+*.tfvars.json
+
+# --- DO NOT EXCLUDE (must reach Cloud Build) ---
+# data/
+# chroma_mem0/
+# chroma_rag/
+# docker/
+# cloudbuild-*.yaml

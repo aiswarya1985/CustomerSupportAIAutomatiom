@@ -1,0 +1,19 @@
+steps:
+  # Step 1: Build the UI image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'build',
+      '-t', 'us-central1-docker.pkg.dev/x-victor-510811-b6/support-copilot/ui:v1',
+      '-f', 'docker/uiDockerfile',
+      '.'
+    ]
+
+  # Step 2: Push the UI image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'push',
+      'us-central1-docker.pkg.dev/x-victor-510811-b6/support-copilot/ui:v1'
+    ]
+
+images:
+  - 'us-central1-docker.pkg.dev/x-victor-510811-b6/support-copilot/ui:v1'

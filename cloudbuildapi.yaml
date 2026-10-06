@@ -1,0 +1,19 @@
+steps:
+  # Step 1: Build the API image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'build',
+      '-t', 'us-central1-docker.pkg.dev/x-victor-510811-b6/support-copilot/api:v1',
+      '-f', 'docker/Dockerfile',
+      '.'
+    ]
+
+  # Step 2: Push the API image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'push',
+      'us-central1-docker.pkg.dev/x-victor-510811-b6/support-copilot/api:v1'
+    ]
+
+images:
+  - 'us-central1-docker.pkg.dev/x-victor-510811-b6/support-copilot/api:v1'

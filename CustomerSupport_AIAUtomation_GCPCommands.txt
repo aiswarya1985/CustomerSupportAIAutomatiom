@@ -1,0 +1,137 @@
+Step 1: Set the Active Project
+
+gcloud config set project x-victor-510811-b6
+
+gcloud auth application-default set-quota-project x-victor-510811-b6
+
+
+Verify it is set correctly:
+
+bash
+gcloud config list
+
+
+Step 2: Enable Required APIs
+
+gcloud services enable \
+    run.googleapis.com \
+    cloudbuild.googleapis.com \
+    artifactregistry.googleapis.com \
+    --project=x-victor-510811-b6
+	
+	
+Step 3: Create an Artifact Registry Repository
+Create a Docker repository to store your images. Use a simple name like support-copilot .
+
+bash
+gcloud artifacts repositories create support-copilot \
+    --repository-format=docker \
+    --location=us-central1 \
+    --description="Docker repo for Support Copilot" \
+    --project=x-victor-510811-b6
+	
+	
+Step 4: Grant IAM Permissions to Cloud Build
+Cloud Build uses a service account to push images and deploy to Cloud Run. Grant it the necessary roles using your Project Number (859126756364) .
+
+bash
+# Define variables for clarity
+PROJECT=x-victor-510811-b6
+CB_SA=859126756364-compute@developer.gserviceaccount.com
+
+# Grant roles to the Cloud Build service account
+for role in \
+    roles/artifactregistry.writer \
+    roles/run.admin \
+    roles/iam.serviceAccountUser \
+    roles/logging.logWriter
+do
+  gcloud projects add-iam-policy-binding $PROJECT \
+    --member="serviceAccount:$CB_SA" \
+    --role="$role"
+done	
+	
+	
+create 2 docker files
+UIDocker
+Docker for APIs
+
+Note: UV .lock file, Docker image file and PYPROJECT.TOML should be in sync (python versions should be in sync ex:3.11 and all packages should be
+part of TOML file)
+
+Build the API now
+
+
+gcloud builds submit --config=cloudbuildapi.yaml --project=x-victor-510811-b6 .
+
+Issue1:
+gcloud projects add-iam-policy-binding x-victor-510811-b6 \
+    --member="serviceAccount:859126756364-compute@developer.gserviceaccount.com" \
+    --role="roles/storage.admin"
+
+Enable secrets
+
+gcloud services enable secretmanager.googleapis.com \
+  --project=x-victor-510811-b6
+  
+  
+	
+Create the secrets in GCP secrets
+
+echo -n "*******" | gcloud secrets create GOOGLE_API_KEY \
+  --data-file=- \
+  --project=x-victor-510811-b6	
+	
+give access to secrets
+
+gcloud secrets add-iam-policy-binding GOOGLE_API_KEY \
+  --member="serviceAccount:859126756364-compute@developer.gserviceaccount.com" \
+  --role="roles/secretmanager.secretAccessor" \
+  --project=x-victor-510811-b6	
+  
+
+Deploy the API
+
+gcloud run deploy support-copilot-api \
+  --image=us-central1-docker.pkg.dev/x-victor-510811-b6/support-copilot/api:v1 \
+  --region=us-central1 \
+  --platform=managed \
+  --allow-unauthenticated \
+  --memory=2Gi \
+  --timeout=300 \
+  --set-secrets=GOOGLE_API_KEY=GOOGLE_API_KEY:latest \
+  --project=x-victor-510811-b6  
+  
+check logs if deploy failed
+
+gcloud logging read \
+  'resource.type="cloud_run_revision" AND resource.labels.revision_name="support-copilot-api-00001-rz9"' \
+  --project=x-victor-510811-b6 \
+  --limit=50 \
+  --format='table(timestamp, textPayload, jsonPayload.message)'  
+  
+  
+Build the UIDocker
+  
+  
+grab APi URL
+API_URL=$(gcloud run services describe support-copilot-api \
+  --region=us-central1 --project=x-victor-510811-b6 \
+  --format='value(status.url)')
+echo "API: $API_URL"
+
+DIGEST=$(gcloud artifacts docker images describe \
+  us-central1-docker.pkg.dev/x-victor-510811-b6/support-copilot/ui:v1 \
+  --project=x-victor-510811-b6 \
+  --format='value(image_summary.digest)')
+echo "UI digest: $DIGEST"
+
+gcloud run deploy support-copilot-ui \
+  --image=us-central1-docker.pkg.dev/x-victor-510811-b6/support-copilot/ui@${DIGEST} \
+  --region=us-central1 \
+  --platform=managed \
+  --allow-unauthenticated \
+  --memory=1Gi \
+  --timeout=300 \
+  --set-env-vars=API_BASE_URL=${API_URL} \
+  --project=x-victor-510811-b6

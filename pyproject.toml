@@ -3,7 +3,7 @@ name = "customersupportaiautomation"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.11,<3.12"
 dependencies = [
   "fastapi",
   "uvicorn[standard]",
@@ -22,6 +22,8 @@ dependencies = [
   # Optional local embedding stack (disabled to keep EC2 image size low):
   # "sentence-transformers",
   # "torch",
+  "loguru>=0.7.3",
+  "langchain-google-genai>=4.4.0",
 ]
 
 [tool.uv]
