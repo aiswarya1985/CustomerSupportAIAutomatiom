@@ -206,5 +206,80 @@ Streamlit shows "Draft accepted and memory updated"
 ######################################################################################################################################
 
 
+###################
+GUARD RAILS
 
+_normalize_pii_tokens->remove PII and give just a string <cARD_NUMBER>
+AccountNumberValidator- replace account number with account_number
+RegexPiiValidator- email and cARD_NUMBER
+ToxicLanguageRegexValidator Identifies toxic language
+ForbiddenPhrasesValidator-Forbidden cases
+GuardrailResult- returns the result whether PIIreadacted or offtopic or toxic content
+{
+    "passed": False,
+    "sanitized_text": "Write me a poem about ATMs",
+    "violations": [
+        {"type": "scope_violation", "label": "off_topic", "reason": "..."},
+    ],
+    "pii_redacted": False,
+}
+
+
+###################
+
+
+
+
+
+######################
+
+Eval Metrics
+
+
+Eval Metrics — Worked Example
+Query:
+
+How many leaves can employees avail in a year?
+
+LLM Answer:
+
+15 casual leaves and 12 earned leaves
+
+Retrieved Chunks:
+
+Chunk	Content	Relevant?
+chunk1	Leave policy — 12 casual leaves	✅ Yes
+chunk2	Leave policy — 12 earned leaves	✅ Yes
+chunk3	Salary information	❌ No
+chunk4	LOP (Leave Without Pay) policy	✅ Yes (but not retrieved)
+Ground Truth:
+
+12 casual leaves and 12 earned leaves (24 total)
+
+Metric Scores
+Metric	Score	Calculation / Reason
+Context Precision	66.67%	2 relevant of 3 retrieved = 2/3
+Context Recall	66.67%	2 retrieved of 3 relevant = 2/3
+Faithfulness	High (loose) / Low (strict)	Answer is phrased like the context; but "15" is not grounded in any chunk
+Answer Relevancy	High	The answer directly addresses the leave-count question
+Answer Correctness	Low	LLM said "15 casual"; ground truth is "12 casual"
+Notes
+Context Precision — chunk3 (salary) is noise; it drags precision down. Fix: better retrieval or reranking.
+
+Context Recall — chunk4 (LOP) is relevant but missed. Fix: improve retrieval coverage.
+
+Faithfulness — under a strict definition, faithfulness should be marked low, because the number "15" is not supported by any retrieved chunk. Under a loose definition (style matches context), it can be called high. Strict is the correct interpretation for a rigorous eval.
+
+Answer Relevancy — the response stays on-topic; the question is about leave counts and the answer is about leave counts.
+
+Answer Correctness — factually wrong. Reference says 12 casual; the LLM said 15.
+
+Summary
+Metric	Value
+Context Precision	66.67%
+Context Recall	66.67%
+Faithfulness	Low (strict)
+Answer Relevancy	High
+Answer Correctness	Low
+Key takeaway: This example shows why RAG evals need multiple metrics. The LLM produced a fluent, on-topic, style-consistent answer that looks grounded — but the retrieval missed a relevant chunk, included an irrelevant one, and the LLM then introduced a wrong number. No single metric captures all of that.
 

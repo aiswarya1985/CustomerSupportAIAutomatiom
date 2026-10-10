@@ -11,11 +11,13 @@ from customer_support_agent.repositories.sqlite.tickets import TicketsRepository
 from customer_support_agent.services.copilot_service import SupportCopilot
 from customer_support_agent.services.draft_service import DraftService
 from customer_support_agent.services.knowledge_service import KnowledgeService
-
+from customer_support_agent.observability import NoOpTracer, Tracer
 
 @lru_cache
 def get_copilot() -> SupportCopilot:
-    return SupportCopilot(settings=get_settings())
+    return SupportCopilot(
+        settings=get_settings(),
+        tracer=get_tracer())
 
 
 def get_copilot_or_503() -> SupportCopilot:
@@ -47,3 +49,10 @@ def get_draft_service() -> DraftService:
 
 def get_knowledge_service(settings: Settings = Depends(get_settings_dep)) -> KnowledgeService:
     return KnowledgeService(settings=settings)
+
+@lru_cache
+def get_tracer() -> Tracer | NoOpTracer:
+    settings = get_settings()
+    if not settings.tracer_enabled:
+        return NoOpTracer()
+    return Tracer(trace_dir=settings.tracer_dir_path)

@@ -15,3 +15,33 @@ To view data in SQLLite
 Install extensions SQLLIte
 click on database and open support db file from local
 
+git issues for committing secret
+git reset --soft 2eeb2ebe7ccc1f72199d50483d7f271ab94cd660~1
+git commit -m "Add GCP automation setup without secrets"
+git push origin main --force
+
+
+install new packages via uv and get synced in TOML and uv lock files
+
+pin python version
+install for specific version of python
+uv python pin 3.11
+uv add pytest ragas
+
+Running evaluations
+step 1:
+uv run python -m spacy download en_core_web_sm
+step 2:
+uv run python -m pytest evals/test_full_eval.py
+uv run python -m pytest evals/test_full_eval.py -m full_eval -s -v --tb=short
+
+Flag	What it does
+uv run python -m pytest	Runs pytest through Python (bypasses the Smart App Control block on pytest.exe)
+evals/test_full_eval.py	Targets your specific test file
+-m full_eval	Selects only tests marked with full_eval (your pytestmark)
+-s	Shows print() and log_eval output live — critical for seeing progress
+-v	Verbose test names
+--tb=short	Shorter tracebacks on failure
+if any packages failed then update TOML file and then
+do
+uv sync

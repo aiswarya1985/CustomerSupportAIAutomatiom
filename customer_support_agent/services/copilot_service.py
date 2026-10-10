@@ -16,11 +16,14 @@ from customer_support_agent.integrations.memory.mem0_store import (
 from customer_support_agent.integrations.rag.chroma_kb import KnowledgeBaseService
 from customer_support_agent.integrations.tools.support_tools import get_support_tools
 from loguru import logger
-
+from customer_support_agent.observability import NoOpTracer, Tracer
 
 class SupportCopilot:
 
-    def __init__(self, settings: Settings):
+    def __init__(
+                 self, 
+                 settings: Settings,
+                 tracer: Tracer | NoOpTracer | None = None,):
         if not settings.GOOGLE_API_KEY:
             raise RuntimeError(
                 "GOOGLE_API_KEY is missing. Add it in .env before generating drafts."
@@ -38,7 +41,7 @@ class SupportCopilot:
             checkpointer=InMemorySaver(),
             name="support_copilot_agent",
         )
-
+        self._tracer = tracer or NoOpTracer()
         self._memory_error: str | None = None
 
         try:

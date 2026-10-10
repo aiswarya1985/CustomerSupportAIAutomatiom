@@ -135,3 +135,4 @@ gcloud run deploy support-copilot-ui \
   --timeout=300 \
   --set-env-vars=API_BASE_URL=${API_URL} \
   --project=x-victor-510811-b6
+
