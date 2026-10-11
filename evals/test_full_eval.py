@@ -21,7 +21,9 @@ from ragas.llms.base import InstructorBaseRagasLLM
 from ragas.metrics.collections import (
     AnswerRelevancy as ResponseRelevancy,
     Faithfulness,
-    ContextPrecision
+    ContextPrecision,
+    ContextRecall,
+    AnswerCorrectness,
 )
 
 from evals._test_support import (
@@ -43,6 +45,8 @@ THRESHOLDS = {
     "faithfulness": 0.64,
     "answer_relevancy": 0.70,
     "context_precision": 0.60,
+    "answer_correctness": 0.75,   # NEW — strict correctness gate
+    "context_recall": 0.70,       # NEW — did retrieval get everything?
 }
 CASE_DELAY_SECONDS = float(os.getenv("FULL_EVAL_CASE_DELAY_SECONDS", "1.0"))
 
@@ -165,6 +169,14 @@ def score_ragas(
 
     # --- Legacy namespace: takes SingleTurnSample, returns float ---
     context_precision = ContextPrecision(llm=llm_wrapper) 
+    
+     # NEW — AnswerCorrectness needs BOTH llm and embeddings
+    answer_correctness = AnswerCorrectness(
+        llm=llm_wrapper,
+        embeddings=embeddings_wrapper,
+    )
+    # NEW — ContextRecall needs only llm
+    context_recall = ContextRecall(llm=llm_wrapper)
 
     faith_result = call_with_retry(
         lambda: asyncio.run(
@@ -193,10 +205,31 @@ def score_ragas(
         )
     )
 
+    correctness_result = call_with_retry(
+        lambda: asyncio.run(
+            answer_correctness.ascore(
+                user_input=user_input,
+                response=actual_output,
+                reference=case["expected_answer"],
+            )
+        )
+    )
+    recall_result = call_with_retry(
+        lambda: asyncio.run(
+            context_recall.ascore(
+                user_input=user_input,
+                reference=case["expected_answer"],
+                retrieved_contexts=retrieval_contexts,
+            )
+        )
+    )
+
     return {
         "faithfulness": round(float(faith_result.value), 4),
         "answer_relevancy": round(float(relevancy_result.value), 4),
         "context_precision": round(float(precision_result.value), 4),
+        "answer_correctness": round(float(correctness_result.value), 4),
+        "context_recall": round(float(recall_result.value), 4),
     }
 
 
@@ -292,6 +325,8 @@ def test_full_eval_suite(tmp_path: Path) -> None:
                 ragas_scores["faithfulness"] >= THRESHOLDS["faithfulness"]
                 and ragas_scores["answer_relevancy"] >= THRESHOLDS["answer_relevancy"]
                 and ragas_scores["context_precision"] >= THRESHOLDS["context_precision"]
+                and ragas_scores["answer_correctness"] >= THRESHOLDS["answer_correctness"]
+                and ragas_scores["context_recall"] >= THRESHOLDS["context_recall"]
                 and all(metric["passed"] for metric in deepeval_results.values())
             )
             results.append(outcome)
@@ -302,6 +337,8 @@ def test_full_eval_suite(tmp_path: Path) -> None:
                 f"faithfulness={ragas_scores['faithfulness']:.4f} "
                 f"answer_relevancy={ragas_scores['answer_relevancy']:.4f} "
                 f"context_precision={ragas_scores['context_precision']:.4f} "
+                f"answer_correctness={ragas_scores['answer_correctness']:.4f} "
+                f"context_recall={ragas_scores['context_recall']:.4f} "
                 f"deepeval={{"
                 + ", ".join(
                     f"{name}={'pass' if data['passed'] else 'fail'}"
