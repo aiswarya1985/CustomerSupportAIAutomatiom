@@ -7,8 +7,8 @@
   },
   "summary": {
     "ragas_averages": {
-      "faithfulness": 0.4064,
-      "answer_relevancy": 0.6764,
+      "faithfulness": 0.9201,
+      "answer_relevancy": 0.734,
       "context_precision": 1.0
     },
     "deepeval_pass_rates": {
@@ -22,9 +22,19 @@
     {
       "id": "atm_pin_safety_guidance",
       "skipped": false,
+      "input_question": "Can the bank ask me for my PIN?\nSomeone claiming to be from the bank asked for my ATM PIN and OTP. Is that expected?",
+      "expected_answer": "Bank staff should never ask for the full card PIN, and customers should never share their OTP or PIN.",
+      "actual_output": "No, bank staff will never ask for your full card PIN. Additionally, you should never share your OTP or PIN with anyone.",
+      "retrieved_contexts": [
+        {
+          "source": "banking-atm-cash-withdrawal-faq.md",
+          "distance": 0.3653,
+          "content": "# ATM Cash Withdrawal FAQ\n\n## Daily Withdrawal Limits\n\n- Standard savings account: up to INR 25,000 per day.\n- Premium savings account: up to INR 50,000 per day.\n- Limits may vary by card type and account risk profile.\n\n## Common Issues\n\n### Cash debited but not dispensed\n\n- Reversal is typically processed within 24 hours.\n- If not reversed in 24 hours, customer should raise a dispute with:\n  - Transaction date and time\n  - ATM location\n  - Last 4 digits of card\n\n### Card blocked after wrong PIN attempts\n\n- Card is temporarily blocked after 3 incorrect PIN attempts.\n- Block is auto-removed after 24 hours, or customer can request manual reset.\n\n## Safety Guidance\n\n- Never share OTP or PIN with anyone.\n- Bank staff will never ask for full card PIN."
+        }
+      ],
       "ragas": {
-        "faithfulness": 0.2222,
-        "answer_relevancy": 0.4648,
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.725,
         "context_precision": 1.0
       },
       "deepeval": {
@@ -49,14 +59,24 @@
           "reason": null
         }
       },
-      "passed": false
+      "passed": true
     },
     {
       "id": "plan_atm_issue_priority",
       "skipped": false,
+      "input_question": "Enterprise customer asking about an ATM cash reversal\nPlease draft a reply for a customer asking about an ATM debit without cash and also check if their plan affects the handling priority.",
+      "expected_answer": "The reply should explain the 24-hour ATM reversal timeline and use the customer plan lookup to decide whether to mention priority handling.",
+      "actual_output": "A cash reversal for an ATM transaction where money was debited but not dispensed is typically processed within 24 hours. If the amount is not reversed within 24 hours, please provide the transaction date and time, the ATM location, and the last 4 digits of your card to raise a dispute. Your account is on our standard plan, and this will be handled as an isolated incident.",
+      "retrieved_contexts": [
+        {
+          "source": "banking-atm-cash-withdrawal-faq.md",
+          "distance": 0.3045,
+          "content": "# ATM Cash Withdrawal FAQ\n\n## Daily Withdrawal Limits\n\n- Standard savings account: up to INR 25,000 per day.\n- Premium savings account: up to INR 50,000 per day.\n- Limits may vary by card type and account risk profile.\n\n## Common Issues\n\n### Cash debited but not dispensed\n\n- Reversal is typically processed within 24 hours.\n- If not reversed in 24 hours, customer should raise a dispute with:\n  - Transaction date and time\n  - ATM location\n  - Last 4 digits of card\n\n### Card blocked after wrong PIN attempts\n\n- Card is temporarily blocked after 3 incorrect PIN attempts.\n- Block is auto-removed after 24 hours, or customer can request manual reset.\n\n## Safety Guidance\n\n- Never share OTP or PIN with anyone.\n- Bank staff will never ask for full card PIN."
+        }
+      ],
       "ragas": {
-        "faithfulness": 0.3333,
-        "answer_relevancy": 0.5582,
+        "faithfulness": 0.7143,
+        "answer_relevancy": 0.6382,
         "context_precision": 1.0
       },
       "deepeval": {
@@ -86,9 +106,19 @@
     {
       "id": "plan_min_balance_priority",
       "skipped": false,
+      "input_question": "Priority draft for a minimum balance fee question\nThe customer wants to know the non-maintenance fee on a savings account and also asks if their plan gives them faster support. Please check the plan too.",
+      "expected_answer": "The reply should mention the typical INR 350 plus taxes non-maintenance fee and use the customer plan lookup before describing response priority.",
+      "actual_output": "The non-maintenance fee for a savings account is INR 350 plus applicable taxes. Your current starter plan does not include priority support.",
+      "retrieved_contexts": [
+        {
+          "source": "banking-charges-and-minimum-balance.md",
+          "distance": 0.303,
+          "content": "# Banking Charges and Minimum Balance\n\n## Minimum Balance Rules\n\n- Urban branch savings account: minimum monthly average balance INR 10,000.\n- Semi-urban branch savings account: minimum monthly average balance INR 5,000.\n- Rural branch savings account: minimum monthly average balance INR 2,500.\n\n## Non-Maintenance Charges\n\n- Charge applies if average monthly balance is below required threshold.\n- Typical non-maintenance fee: INR 350 + applicable taxes.\n- Charges are posted at month-end billing cycle.\n\n## SMS and Debit Card Charges\n\n- SMS alert annual fee: INR 150 + taxes.\n- Debit card annual maintenance fee: INR 250 + taxes.\n\n## Account Closure Charges\n\n- No closure fee after 14 days from account opening.\n- Closure within first 14 days may attract INR 200 processing charge."
+        }
+      ],
       "ragas": {
-        "faithfulness": 0.3,
-        "answer_relevancy": 0.6209,
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.6291,
         "context_precision": 1.0
       },
       "deepeval": {
@@ -118,9 +148,19 @@
     {
       "id": "low_risk_kyc_frequency",
       "skipped": false,
+      "input_question": "KYC refresh cycle for low-risk customers\nHow often does a low-risk savings customer need to complete a full KYC update?",
+      "expected_answer": "Low-risk customers require a full KYC update every 8 years.",
+      "actual_output": "A full KYC update is required every 8 years for low-risk customers.",
+      "retrieved_contexts": [
+        {
+          "source": "banking-kyc-and-account-update-rules.md",
+          "distance": 0.2551,
+          "content": "# KYC and Account Update Rules\n\n## KYC Update Frequency\n\n- Full KYC update is required every 8 years for low-risk customers.\n- Full KYC update is required every 2 years for high-risk customers.\n\n## Accepted Address Proof\n\n- Aadhaar card\n- Passport\n- Driving license\n- Utility bill (not older than 3 months)\n\n## Mobile Number or Email Update\n\n- Updates can be done through branch or net banking.\n- OTP verification is mandatory for all profile updates.\n- Changes reflect within 30 minutes after successful verification.\n\n## Name Correction Policy\n\n- Minor spelling corrections are processed in 2 working days.\n- Legal name change requires supporting legal documents and branch verification."
+        }
+      ],
       "ragas": {
-        "faithfulness": 0.1667,
-        "answer_relevancy": 0.5354,
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.8861,
         "context_precision": 1.0
       },
       "deepeval": {
@@ -145,14 +185,24 @@
           "reason": null
         }
       },
-      "passed": false
+      "passed": true
     },
     {
       "id": "email_update_timing",
       "skipped": false,
+      "input_question": "How long does an email update take?\nIf I update my mobile number or email through branch or net banking, how quickly does the change reflect?",
+      "expected_answer": "Mobile number or email updates require OTP verification and usually reflect within 30 minutes after successful verification.",
+      "actual_output": "Changes to your mobile number or email reflect within 30 minutes after successful OTP verification.",
+      "retrieved_contexts": [
+        {
+          "source": "banking-kyc-and-account-update-rules.md",
+          "distance": 0.2578,
+          "content": "# KYC and Account Update Rules\n\n## KYC Update Frequency\n\n- Full KYC update is required every 8 years for low-risk customers.\n- Full KYC update is required every 2 years for high-risk customers.\n\n## Accepted Address Proof\n\n- Aadhaar card\n- Passport\n- Driving license\n- Utility bill (not older than 3 months)\n\n## Mobile Number or Email Update\n\n- Updates can be done through branch or net banking.\n- OTP verification is mandatory for all profile updates.\n- Changes reflect within 30 minutes after successful verification.\n\n## Name Correction Policy\n\n- Minor spelling corrections are processed in 2 working days.\n- Legal name change requires supporting legal documents and branch verification."
+        }
+      ],
       "ragas": {
-        "faithfulness": 0.375,
-        "answer_relevancy": 0.5256,
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.6997,
         "context_precision": 1.0
       },
       "deepeval": {
@@ -182,8 +232,18 @@
     {
       "id": "urban_min_balance",
       "skipped": false,
+      "input_question": "Urban branch minimum balance\nWhat monthly average balance is required for an urban branch savings account?",
+      "expected_answer": "Urban branch savings accounts require a minimum monthly average balance of INR 10,000.",
+      "actual_output": "The minimum monthly average balance required for an urban branch savings account is INR 10,000.",
+      "retrieved_contexts": [
+        {
+          "source": "banking-charges-and-minimum-balance.md",
+          "distance": 0.2392,
+          "content": "# Banking Charges and Minimum Balance\n\n## Minimum Balance Rules\n\n- Urban branch savings account: minimum monthly average balance INR 10,000.\n- Semi-urban branch savings account: minimum monthly average balance INR 5,000.\n- Rural branch savings account: minimum monthly average balance INR 2,500.\n\n## Non-Maintenance Charges\n\n- Charge applies if average monthly balance is below required threshold.\n- Typical non-maintenance fee: INR 350 + applicable taxes.\n- Charges are posted at month-end billing cycle.\n\n## SMS and Debit Card Charges\n\n- SMS alert annual fee: INR 150 + taxes.\n- Debit card annual maintenance fee: INR 250 + taxes.\n\n## Account Closure Charges\n\n- No closure fee after 14 days from account opening.\n- Closure within first 14 days may attract INR 200 processing charge."
+        }
+      ],
       "ragas": {
-        "faithfulness": 0.8,
+        "faithfulness": 1.0,
         "answer_relevancy": 0.9688,
         "context_precision": 1.0
       },
@@ -214,9 +274,19 @@
     {
       "id": "plan_kyc_update_priority",
       "skipped": false,
+      "input_question": "Plan-aware response for an email update request\nA customer wants to update their email address and asks whether their plan changes the response priority. Please answer the policy part and check the plan.",
+      "expected_answer": "The reply should mention OTP verification, the 30-minute reflection window, and use the customer plan lookup when describing handling priority.",
+      "actual_output": "You can update your email address through our branch or net banking, and the change will reflect within 30 minutes after mandatory OTP verification. Your enterprise plan entitles you to priority handling for your requests.",
+      "retrieved_contexts": [
+        {
+          "source": "banking-kyc-and-account-update-rules.md",
+          "distance": 0.3305,
+          "content": "# KYC and Account Update Rules\n\n## KYC Update Frequency\n\n- Full KYC update is required every 8 years for low-risk customers.\n- Full KYC update is required every 2 years for high-risk customers.\n\n## Accepted Address Proof\n\n- Aadhaar card\n- Passport\n- Driving license\n- Utility bill (not older than 3 months)\n\n## Mobile Number or Email Update\n\n- Updates can be done through branch or net banking.\n- OTP verification is mandatory for all profile updates.\n- Changes reflect within 30 minutes after successful verification.\n\n## Name Correction Policy\n\n- Minor spelling corrections are processed in 2 working days.\n- Legal name change requires supporting legal documents and branch verification."
+        }
+      ],
       "ragas": {
-        "faithfulness": 0.2727,
-        "answer_relevancy": 0.5376,
+        "faithfulness": 0.6667,
+        "answer_relevancy": 0.4248,
         "context_precision": 1.0
       },
       "deepeval": {
@@ -246,9 +316,19 @@
     {
       "id": "accepted_address_proof",
       "skipped": false,
+      "input_question": "Accepted documents for address proof\nWhich documents count as valid address proof for a profile or KYC update?",
+      "expected_answer": "Accepted address proof includes Aadhaar card, passport, driving license, and a utility bill not older than 3 months.",
+      "actual_output": "Valid documents for address proof include an Aadhaar card, passport, driving license, or a utility bill not older than 3 months.",
+      "retrieved_contexts": [
+        {
+          "source": "banking-kyc-and-account-update-rules.md",
+          "distance": 0.2458,
+          "content": "# KYC and Account Update Rules\n\n## KYC Update Frequency\n\n- Full KYC update is required every 8 years for low-risk customers.\n- Full KYC update is required every 2 years for high-risk customers.\n\n## Accepted Address Proof\n\n- Aadhaar card\n- Passport\n- Driving license\n- Utility bill (not older than 3 months)\n\n## Mobile Number or Email Update\n\n- Updates can be done through branch or net banking.\n- OTP verification is mandatory for all profile updates.\n- Changes reflect within 30 minutes after successful verification.\n\n## Name Correction Policy\n\n- Minor spelling corrections are processed in 2 working days.\n- Legal name change requires supporting legal documents and branch verification."
+        }
+      ],
       "ragas": {
-        "faithfulness": 0.5,
-        "answer_relevancy": 0.9418,
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.7603,
         "context_precision": 1.0
       },
       "deepeval": {
@@ -273,14 +353,24 @@
           "reason": null
         }
       },
-      "passed": false
+      "passed": true
     },
     {
       "id": "atm_cash_debited_reversal",
       "skipped": false,
+      "input_question": "ATM debited my account but gave no cash\nThe ATM deducted money but did not dispense cash. How long does reversal normally take?",
+      "expected_answer": "ATM cash-not-dispensed reversals are typically processed within 24 hours.",
+      "actual_output": "A reversal for a cash withdrawal where money was debited but not dispensed is typically processed within 24 hours. If the amount is not reversed within 24 hours, please raise a dispute with the transaction date and time, the ATM location, and the last 4 digits of your card.",
+      "retrieved_contexts": [
+        {
+          "source": "banking-atm-cash-withdrawal-faq.md",
+          "distance": 0.2635,
+          "content": "# ATM Cash Withdrawal FAQ\n\n## Daily Withdrawal Limits\n\n- Standard savings account: up to INR 25,000 per day.\n- Premium savings account: up to INR 50,000 per day.\n- Limits may vary by card type and account risk profile.\n\n## Common Issues\n\n### Cash debited but not dispensed\n\n- Reversal is typically processed within 24 hours.\n- If not reversed in 24 hours, customer should raise a dispute with:\n  - Transaction date and time\n  - ATM location\n  - Last 4 digits of card\n\n### Card blocked after wrong PIN attempts\n\n- Card is temporarily blocked after 3 incorrect PIN attempts.\n- Block is auto-removed after 24 hours, or customer can request manual reset.\n\n## Safety Guidance\n\n- Never share OTP or PIN with anyone.\n- Bank staff will never ask for full card PIN."
+        }
+      ],
       "ragas": {
-        "faithfulness": 0.4444,
-        "answer_relevancy": 0.6079,
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.8389,
         "context_precision": 1.0
       },
       "deepeval": {
@@ -305,14 +395,24 @@
           "reason": null
         }
       },
-      "passed": false
+      "passed": true
     },
     {
       "id": "atm_standard_limit",
       "skipped": false,
+      "input_question": "Daily ATM limit for my regular savings account\nPlease confirm how much cash I can withdraw from an ATM today from a standard savings account.",
+      "expected_answer": "Standard savings accounts can withdraw up to INR 25,000 per day at ATMs, though the exact cap can vary by card type and risk profile.",
+      "actual_output": "The daily ATM withdrawal limit for a standard savings account is up to INR 25,000 per day.",
+      "retrieved_contexts": [
+        {
+          "source": "banking-atm-cash-withdrawal-faq.md",
+          "distance": 0.2281,
+          "content": "# ATM Cash Withdrawal FAQ\n\n## Daily Withdrawal Limits\n\n- Standard savings account: up to INR 25,000 per day.\n- Premium savings account: up to INR 50,000 per day.\n- Limits may vary by card type and account risk profile.\n\n## Common Issues\n\n### Cash debited but not dispensed\n\n- Reversal is typically processed within 24 hours.\n- If not reversed in 24 hours, customer should raise a dispute with:\n  - Transaction date and time\n  - ATM location\n  - Last 4 digits of card\n\n### Card blocked after wrong PIN attempts\n\n- Card is temporarily blocked after 3 incorrect PIN attempts.\n- Block is auto-removed after 24 hours, or customer can request manual reset.\n\n## Safety Guidance\n\n- Never share OTP or PIN with anyone.\n- Bank staff will never ask for full card PIN."
+        }
+      ],
       "ragas": {
-        "faithfulness": 0.375,
-        "answer_relevancy": 0.8759,
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.8626,
         "context_precision": 1.0
       },
       "deepeval": {
@@ -337,14 +437,24 @@
           "reason": null
         }
       },
-      "passed": false
+      "passed": true
     },
     {
       "id": "dmat_not_available",
       "skipped": false,
+      "input_question": "DMAT service on a savings account\nCan I enable DMAT service directly on a savings account?",
+      "expected_answer": "DMAT service is not available for savings account holders.",
+      "actual_output": "No, DMAT service is not available for saving account holders.",
+      "retrieved_contexts": [
+        {
+          "source": "saving-account-rule.md",
+          "distance": 0.2763,
+          "content": "# Saving Account Rule\n\nThis document defines key policy rules for saving account holders.\n\n## Mandatory Rules\n\n1. Cheque services are activated only after 1 month of Account openening.\n2. DMAT service is not available for saving account holders."
+        }
+      ],
       "ragas": {
-        "faithfulness": 0.4,
-        "answer_relevancy": 0.8691,
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.8505,
         "context_precision": 1.0
       },
       "deepeval": {
@@ -369,14 +479,29 @@
           "reason": null
         }
       },
-      "passed": false
+      "passed": true
     },
     {
       "id": "closure_within_14_days",
       "skipped": false,
+      "input_question": "Closing a newly opened savings account\nI want to close a savings account within the first two weeks. What processing charge applies?",
+      "expected_answer": "Closing the account within the first 14 days may attract an INR 200 processing charge.",
+      "actual_output": "Closing a savings account within the first 14 days may attract a processing charge of INR 200.",
+      "retrieved_contexts": [
+        {
+          "source": "banking-charges-and-minimum-balance.md",
+          "distance": 0.3273,
+          "content": "# Banking Charges and Minimum Balance\n\n## Minimum Balance Rules\n\n- Urban branch savings account: minimum monthly average balance INR 10,000.\n- Semi-urban branch savings account: minimum monthly average balance INR 5,000.\n- Rural branch savings account: minimum monthly average balance INR 2,500.\n\n## Non-Maintenance Charges\n\n- Charge applies if average monthly balance is below required threshold.\n- Typical non-maintenance fee: INR 350 + applicable taxes.\n- Charges are posted at month-end billing cycle.\n\n## SMS and Debit Card Charges\n\n- SMS alert annual fee: INR 150 + taxes.\n- Debit card annual maintenance fee: INR 250 + taxes.\n\n## Account Closure Charges\n\n- No closure fee after 14 days from account opening.\n- Closure within first 14 days may attract INR 200 processing charge."
+        },
+        {
+          "source": "saving-account-rule.md",
+          "distance": 0.3528,
+          "content": "# Saving Account Rule\n\nThis document defines key policy rules for saving account holders.\n\n## Mandatory Rules\n\n1. Cheque services are activated only after 1 month of Account openening.\n2. DMAT service is not available for saving account holders."
+        }
+      ],
       "ragas": {
-        "faithfulness": 0.25,
-        "answer_relevancy": 0.8283,
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.7737,
         "context_precision": 1.0
       },
       "deepeval": {
@@ -401,14 +526,24 @@
           "reason": null
         }
       },
-      "passed": false
+      "passed": true
     },
     {
       "id": "atm_wrong_pin_manual_reset",
       "skipped": false,
+      "input_question": "Need help after PIN lock\nI entered the wrong ATM PIN too many times. Is there a manual reset option or do I have to wait?",
+      "expected_answer": "After three wrong PIN attempts, the card can either auto-unblock after 24 hours or the customer can request a manual reset.",
+      "actual_output": "Yes, you can request a manual reset for your card, or it will be automatically unblocked after 24 hours.",
+      "retrieved_contexts": [
+        {
+          "source": "banking-atm-cash-withdrawal-faq.md",
+          "distance": 0.3166,
+          "content": "# ATM Cash Withdrawal FAQ\n\n## Daily Withdrawal Limits\n\n- Standard savings account: up to INR 25,000 per day.\n- Premium savings account: up to INR 50,000 per day.\n- Limits may vary by card type and account risk profile.\n\n## Common Issues\n\n### Cash debited but not dispensed\n\n- Reversal is typically processed within 24 hours.\n- If not reversed in 24 hours, customer should raise a dispute with:\n  - Transaction date and time\n  - ATM location\n  - Last 4 digits of card\n\n### Card blocked after wrong PIN attempts\n\n- Card is temporarily blocked after 3 incorrect PIN attempts.\n- Block is auto-removed after 24 hours, or customer can request manual reset.\n\n## Safety Guidance\n\n- Never share OTP or PIN with anyone.\n- Bank staff will never ask for full card PIN."
+        }
+      ],
       "ragas": {
-        "faithfulness": 0.75,
-        "answer_relevancy": 0.6971,
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.5468,
         "context_precision": 1.0
       },
       "deepeval": {
@@ -438,9 +573,19 @@
     {
       "id": "non_maintenance_fee",
       "skipped": false,
+      "input_question": "Penalty for not maintaining balance\nWhat fee is usually charged if my savings account average balance falls below the required threshold?",
+      "expected_answer": "Typical non-maintenance charges are INR 350 plus applicable taxes and are posted at the month-end billing cycle.",
+      "actual_output": "The typical non-maintenance fee for falling below the required average monthly balance is INR 350 plus applicable taxes. These charges are posted at the end of the month's billing cycle.",
+      "retrieved_contexts": [
+        {
+          "source": "banking-charges-and-minimum-balance.md",
+          "distance": 0.2737,
+          "content": "# Banking Charges and Minimum Balance\n\n## Minimum Balance Rules\n\n- Urban branch savings account: minimum monthly average balance INR 10,000.\n- Semi-urban branch savings account: minimum monthly average balance INR 5,000.\n- Rural branch savings account: minimum monthly average balance INR 2,500.\n\n## Non-Maintenance Charges\n\n- Charge applies if average monthly balance is below required threshold.\n- Typical non-maintenance fee: INR 350 + applicable taxes.\n- Charges are posted at month-end billing cycle.\n\n## SMS and Debit Card Charges\n\n- SMS alert annual fee: INR 150 + taxes.\n- Debit card annual maintenance fee: INR 250 + taxes.\n\n## Account Closure Charges\n\n- No closure fee after 14 days from account opening.\n- Closure within first 14 days may attract INR 200 processing charge."
+        }
+      ],
       "ragas": {
-        "faithfulness": 0.5,
-        "answer_relevancy": 0.4388,
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.6718,
         "context_precision": 1.0
       },
       "deepeval": {
@@ -469,6 +614,6 @@
     }
   ],
   "notes": [
-    "Cases below per-case thresholds: atm_pin_safety_guidance, plan_atm_issue_priority, plan_min_balance_priority, low_risk_kyc_frequency, email_update_timing, plan_kyc_update_priority, accepted_address_proof, atm_cash_debited_reversal, atm_standard_limit, dmat_not_available, closure_within_14_days, atm_wrong_pin_manual_reset, non_maintenance_fee"
+    "Cases below per-case thresholds: plan_atm_issue_priority, plan_min_balance_priority, email_update_timing, plan_kyc_update_priority, atm_wrong_pin_manual_reset, non_maintenance_fee"
   ]
 }

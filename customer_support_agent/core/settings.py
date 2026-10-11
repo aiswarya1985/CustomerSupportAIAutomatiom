@@ -35,6 +35,8 @@ class Settings(BaseSettings):
     rag_chunk_overlap: int = 120
     rag_top_k: int = 4
     mem0_top_k: int = 5
+    rag_max_margin: float = 0.05 
+    rag_irrelevant_floor: float = 0.70 
 
     api_host: str = "0.0.0.0"
     api_port: int = 8000

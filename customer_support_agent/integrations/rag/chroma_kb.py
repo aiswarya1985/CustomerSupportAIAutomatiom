@@ -118,4 +118,39 @@ class KnowledgeBaseService:
                 }
             )
 
-        return combined
+        if not combined:
+            return []
+
+        # --- Relevance filtering ---
+        # Drop chunks whose distance is well worse than the best hit.
+        # Distances are query-relative, so we use a *margin* from the
+        # best hit rather than an absolute cutoff for the "keep or drop"
+        # decision. The `rag_irrelevant_floor` is a loose safety net for
+        # the case where *nothing* in the KB is relevant.
+        valid = [h for h in combined if h["distance"] is not None]
+        if not valid:
+            return combined  # can't filter without distances
+
+        best_distance = min(h["distance"] for h in valid)
+        margin = self._settings.rag_max_margin
+        floor = self._settings.rag_irrelevant_floor
+
+        # If even the best hit is far away, the KB has nothing useful
+        if best_distance > floor:
+            logger.info(
+                f"Retrieval floor hit: best_distance={best_distance:.4f} > "
+                f"floor={floor}. Returning no chunks."
+            )
+            return []
+
+        filtered = [
+            h for h in combined
+            if h["distance"] is not None and (h["distance"] - best_distance) <= margin
+        ]
+
+        logger.info(
+            f"Retrieved {len(combined)} chunks, kept {len(filtered)} "
+            f"(best={best_distance:.4f}, margin={margin}, floor={floor})"
+        )
+
+        return filtered or combined[:1]

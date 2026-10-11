@@ -16,13 +16,12 @@ from ragas.dataset_schema import SingleTurnSample
 from ragas.embeddings.base import BaseRagasEmbedding
 from ragas.llms.base import InstructorBaseRagasLLM
 
-# Legacy namespace — non-LLM metric only
-from ragas.metrics import NonLLMContextPrecisionWithReference
 
 # Modern collections namespace — LLM-judged metrics
 from ragas.metrics.collections import (
     AnswerRelevancy as ResponseRelevancy,
     Faithfulness,
+    ContextPrecision
 )
 
 from evals._test_support import (
@@ -154,12 +153,7 @@ def score_ragas(
     reference_contexts: list[str],
 ) -> dict[str, float]:
     user_input = f"{case['ticket']['subject']}\n{case['ticket']['description']}"
-    sample = SingleTurnSample(
-        user_input=user_input,
-        response=actual_output,
-        retrieved_contexts=retrieval_contexts,
-        reference_contexts=reference_contexts,
-    )
+    
 
     # --- Modern collections API: keyword args, returns MetricResult ---
     faithfulness = Faithfulness(llm=llm_wrapper)
@@ -170,7 +164,7 @@ def score_ragas(
     )
 
     # --- Legacy namespace: takes SingleTurnSample, returns float ---
-    context_precision = NonLLMContextPrecisionWithReference()
+    context_precision = ContextPrecision(llm=llm_wrapper) 
 
     faith_result = call_with_retry(
         lambda: asyncio.run(
@@ -189,14 +183,20 @@ def score_ragas(
             )
         )
     )
-    precision_score = call_with_retry(
-        lambda: asyncio.run(context_precision.single_turn_ascore(sample))
+    precision_result = call_with_retry(
+        lambda: asyncio.run(
+            context_precision.ascore(
+                user_input=user_input,
+                reference=case["expected_answer"],
+                retrieved_contexts=retrieval_contexts               
+            )
+        )
     )
 
     return {
         "faithfulness": round(float(faith_result.value), 4),
         "answer_relevancy": round(float(relevancy_result.value), 4),
-        "context_precision": round(float(precision_score), 4),
+        "context_precision": round(float(precision_result.value), 4),
     }
 
 
@@ -240,9 +240,9 @@ def test_full_eval_suite(tmp_path: Path) -> None:
                 f"tools={tool_names or ['none']} "
                 f"errors={context_used.get('errors', []) or ['none']}"
             )
-            retrieval_contexts = [
-                hit["content"] for hit in direct_search_contexts(settings, case)
-            ]
+            retrieved_hits = direct_search_contexts(settings, case)
+            retrieval_contexts = [hit["content"] for hit in retrieved_hits]
+            
 
             reference_contexts = load_expected_reference_contexts(case, settings)
 
@@ -275,6 +275,17 @@ def test_full_eval_suite(tmp_path: Path) -> None:
                     "reason": metric.reason,
                 }
 
+            outcome["input_question"] = f"{case['ticket']['subject']}\n{case['ticket']['description']}"
+            outcome["expected_answer"] = case["expected_answer"]
+            outcome["actual_output"] = draft["content"]
+            outcome["retrieved_contexts"] = [
+                {
+                    "source": h.get("source"),
+                    "distance": round(h["distance"], 4) if h.get("distance") is not None else None,
+                    "content": h.get("content", ""),
+                }
+                for h in retrieved_hits
+            ]
             outcome["ragas"] = ragas_scores
             outcome["deepeval"] = deepeval_results
             outcome["passed"] = (

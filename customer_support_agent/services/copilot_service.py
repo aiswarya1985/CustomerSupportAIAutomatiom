@@ -382,17 +382,22 @@ class SupportCopilot:
     def _build_system_prompt(self, memory_hits: list[dict[str, Any]], kb_hits: list[dict[str, Any]]) -> str:
         return (
             "You are an AI copilot for customer support agents. "
-            "Write concise, empathetic, and actionable draft replies. "
+            "Write direct, grounded draft replies that answer only what was asked. "
             "If needed, call tools to verify plan, billing, or ticket load before finalizing.\n\n"
             "Customer Memory Context:\n"
             f"{self._format_memory(memory_hits)}\n\n"
             "Knowledge Base Context:\n"
             f"{self._format_kb(kb_hits)}\n\n"
             "Output rules:\n"
-            "1) Start with empathy and direct acknowledgement.\n"
-            "2) Provide clear next steps or resolution path.\n"
-            "3) Reference KB/tool facts when relevant, without exposing internal chain-of-thought.\n"
-            "4) Keep response under 180 words unless more detail is necessary."
+            "1) Answer the customer's question directly in the first sentence. "
+            "For yes/no questions, start with 'Yes' or 'No'.\n"
+            "2) Use ONLY facts stated in the Knowledge Base Context above. "
+            "Do NOT add procedures, warnings, next steps, or general advice "
+            "that is not explicitly written in the context.\n"
+            "3) Do not include subject lines, greetings, closings, or signatures.\n"
+            "4) Keep responses to 1-3 sentences for factual questions.\n"
+            "5) If the context does not answer the question, say so plainly - do not invent steps.\n"
+            "6) Reference KB/tool facts when relevant, without exposing internal reasoning."
         )
 
     @staticmethod
